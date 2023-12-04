@@ -1,7 +1,8 @@
-// import { useState } from "react";
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
-import { cards } from "../../level_1";
+import { cards1_1 } from "../../cards/main";
 
 type Level = {
   id: string;
@@ -12,58 +13,62 @@ type Level = {
   back: string;
 };
 
-const level: Level[] = cards;
-// Find first object in flashcards
+console.log(cards1_1);
+
+const level: Level[] = cards1_1;
+// Returns the value of the first element in the array
 export default function GetLevel({ params }: { params: { id: string } }) {
   const currentLevel = level.find((level) => level.id === params.id);
+  // STATES
+  const [count, setCount] = useState(1);
+  const [currentFlashcard, setCurrentFlashcard] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [rotateCard, setRotateCard] = useState(false);
 
-  // Code used in react app. UseState not working so far.
-  // const [state, setState] = useState({
-  //   count: 1,
-  //   currentFlashcard: 0,
-  //   isFlipped: false,
-  //   rotateCard: false,
-  // });
+  const levelsIds = level.map(({ id }) => id);
+  console.log(levelsIds);
 
-  // const nextFlash = () => {
-  //   if (state.currentFlashcard < level.length - 1) {
-  //     setState((state) => ({
-  //       ...state,
-  //       count: state.count + 1,
-  //       currentFlashcard: state.currentFlashcard + 1,
-  //       isFlipped: false,
-  //       rotateCard: false,
-  //     }));
-  //   }
-  // };
+  const resetFlash = () => {
+    setCount(1);
+    setCurrentFlashcard(0);
+    setIsFlipped(false);
+    setRotateCard(false);
+  };
 
-  // const previousFlash = () => {
-  //   if (state.currentFlashcard > 0) {
-  //     setState((state) => ({
-  //       ...state,
-  //       count: state.count - 1,
-  //       currentFlashcard: state.currentFlashcard - 1,
-  //       isFlipped: false,
-  //       rotateCard: false,
-  //     }));
-  //   }
-  // };
+  const nextFlash = () => {
+    if (currentFlashcard < level.length - 1) {
+      setCount(count + 1);
+      setCurrentFlashcard(currentFlashcard + 1);
+      setIsFlipped(false);
+      setRotateCard(false);
+    }
+  };
 
-  // const flipFlash = () => {
-  //   setState((state) => ({
-  //     ...state,
-  //     isFlipped: !state.isFlipped,
-  //     rotateCard: true,
-  //   }));
-  // };
+  const previousFlash = () => {
+    if (currentFlashcard > 0) {
+      setCount(count - 1);
+      setCurrentFlashcard(currentFlashcard - 1);
+      setIsFlipped(false);
+      setRotateCard(false);
+    }
+  };
+
+  const flipFlash = () => {
+    setIsFlipped(!isFlipped);
+    setRotateCard(true);
+  };
 
   return (
     <>
       <main className="flex-shrink-0">
+        {/* NAV */}
         <nav className="d-flex gap-5">
-          <a href="http://localhost:3000/level/1.1">Level 1.1</a>
-          <a href="http://localhost:3000/level/1.2">Level 1.2</a>
-          <a href="http://localhost:3000/level/1.3">Level 1.3</a>
+          {levelsIds.map((id) => (
+            <a href={`/level/${id}`}>Level {id}</a>
+          ))}
+          {/* <a href="/level/1.1">Level 1.1</a>
+          <a href="/level/1.2">Level 1.2</a>
+          <a href="/level/1.3">Level 1.3</a> */}
         </nav>
         {/*  Section Flash card */}
         <section className="py-5 bg-secondary bg-opacity-20">
@@ -73,17 +78,17 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                 <div className="d-flex div-flex hstack gap-2 text-dark mb-4 justify-content-center">
                   <h2>
                     <span className="set-level badge fw-bolder text-light bg-primary bg-opacity-60">
-                      {currentLevel?.id}
+                      {level[0].id}
                     </span>
                   </h2>
                   <h3 className="fw-bolder title-flashcard text-dark">
-                    {currentLevel?.title}
+                    {level[0].title}
                   </h3>
                 </div>
               </div>
             </div>
             <div className={"d-flex justify-content-center mb-3"}>
-              <audio src={currentLevel?.audio} controls />
+              <audio src={level[0].audio} controls />
             </div>
           </div>
           {/*  NEW container for Counter and Restart button  */}
@@ -95,13 +100,14 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                     <button
                       type="button"
                       className="btn btn-restart btn-dark text-white"
+                      onClick={resetFlash}
                     >
                       Reset
                     </button>
                   </div>
                   <div className="col d-flex align-items-center justify-content-start ms-2">
-                    <div className={styles.counter01}>1</div>
-                    <div className={styles.counter50}> / 30</div>
+                    <div className={styles.counter01}>{count}</div>
+                    <div className={styles.counter50}> / {level.length}</div>
                   </div>
                 </div>
               </div>
@@ -116,11 +122,17 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                     <div className="img-cover">
                       <img
                         className={`${styles.flashimage} rounded`}
-                        src={currentLevel?.image}
+                        src={level[currentFlashcard].image}
                       />
                     </div>
-                    <div className={`${styles.cardfront} text-space`}>
-                      {currentLevel?.front}
+                    <div
+                      className={`${styles.cardfront} text-space flashType ${
+                        rotateCard ? "rotate" : ""
+                      }`}
+                    >
+                      {isFlipped
+                        ? level[currentFlashcard].back
+                        : level[currentFlashcard].front}
                     </div>
                   </div>
                 </a>
@@ -136,15 +148,24 @@ export default function GetLevel({ params }: { params: { id: string } }) {
               <div className="col-xl-6">
                 <div className="d-flex justify-content-between">
                   {/*  PREVIOUS BUTTON  */}
-                  <a className={`${styles.btnflash} ${styles.btnprev}`}>
+                  <a
+                    className={`${styles.btnflash} ${styles.btnprev}`}
+                    onClick={previousFlash}
+                  >
                     <i className={"bi bi-arrow-left-short"}></i>
                   </a>
                   {/* FLIP BUTTON  */}
-                  <a className={`${styles.btnflash} ${styles.btnflip}`}>
+                  <a
+                    className={`${styles.btnflash} ${styles.btnflip}`}
+                    onClick={flipFlash}
+                  >
                     <i className={"bi bi-arrow-down-up"}></i>
                   </a>
                   {/*  NEXT BUTTON  */}
-                  <a className={`${styles.btnflash} ${styles.btnnext}`}>
+                  <a
+                    className={`${styles.btnflash} ${styles.btnnext}`}
+                    onClick={nextFlash}
+                  >
                     <i className={"bi bi-arrow-right-short"}></i>
                   </a>
                 </div>

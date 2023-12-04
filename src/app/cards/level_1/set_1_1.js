@@ -1,4 +1,4 @@
-export const cards = [
+export const cards1_1 = [
   {
     id: "1.1",
     title: "Subject Pronouns",
@@ -7,6 +7,7 @@ export const cards = [
     front: "ja",
     back: "I",
   },
+
   {
     front: "ty",
     back: "you",
