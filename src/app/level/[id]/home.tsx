@@ -1,7 +1,7 @@
 import Image from "next/image";
-import styles from "./page.module.css";
-import { cards } from "./level_1";
-import Page from "./level/[id]/home";
+import styles from "../../page.module.css";
+import { cards } from "../../level_1";
+import GetLevel from "./page";
 
 type Level = {
   id: string;
@@ -12,14 +12,21 @@ type Level = {
   back: string;
 };
 
-const level: Level = cards[0];
-
-// const levels = [];
-// const currentLevel = level.find((id) => id === params.id);
+const level: Level[] = cards;
 
 export default function Home() {
   return (
+    // <GetLevel
+    //   params={{
+    //     id: "",
+    //   }}
+    // />
     <main className="flex-shrink-0">
+      <nav className="d-flex me-5">
+        <a href="http://localhost:3000/level/1.1">Level 1.1</a>
+        <a href="http://localhost:3000/level/1.2">Level 1.2</a>
+        <a href="http://localhost:3000/level/1.2">Level 1.3</a>
+      </nav>
       {/*  Section Flash card */}
       <section className="py-5 bg-secondary bg-opacity-20">
         <div className="container cont-flashcard px-4 my-5">
