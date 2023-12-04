@@ -13,10 +13,11 @@ type Level = {
 };
 
 const level: Level[] = cards;
-
+// Find first object in flashcards
 export default function GetLevel({ params }: { params: { id: string } }) {
   const currentLevel = level.find((level) => level.id === params.id);
 
+  // Code used in react app. UseState not working so far.
   // const [state, setState] = useState({
   //   count: 1,
   //   currentFlashcard: 0,
