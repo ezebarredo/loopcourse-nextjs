@@ -1,3 +1,4 @@
+// import { useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
 import { cards } from "../../level_1";
@@ -15,6 +16,46 @@ const level: Level[] = cards;
 
 export default function GetLevel({ params }: { params: { id: string } }) {
   const currentLevel = level.find((level) => level.id === params.id);
+
+  // const [state, setState] = useState({
+  //   count: 1,
+  //   currentFlashcard: 0,
+  //   isFlipped: false,
+  //   rotateCard: false,
+  // });
+
+  // const nextFlash = () => {
+  //   if (state.currentFlashcard < level.length - 1) {
+  //     setState((state) => ({
+  //       ...state,
+  //       count: state.count + 1,
+  //       currentFlashcard: state.currentFlashcard + 1,
+  //       isFlipped: false,
+  //       rotateCard: false,
+  //     }));
+  //   }
+  // };
+
+  // const previousFlash = () => {
+  //   if (state.currentFlashcard > 0) {
+  //     setState((state) => ({
+  //       ...state,
+  //       count: state.count - 1,
+  //       currentFlashcard: state.currentFlashcard - 1,
+  //       isFlipped: false,
+  //       rotateCard: false,
+  //     }));
+  //   }
+  // };
+
+  // const flipFlash = () => {
+  //   setState((state) => ({
+  //     ...state,
+  //     isFlipped: !state.isFlipped,
+  //     rotateCard: true,
+  //   }));
+  // };
+
   return (
     <>
       <main className="flex-shrink-0">
