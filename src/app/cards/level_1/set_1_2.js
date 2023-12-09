@@ -1,12 +1,7 @@
-const myCardsTitle = [
+export const cards1_2 = [
   {
-    levelNumber: "1.2",
+    id: "1.2",
     title: "Possesive Pronouns",
-  },
-];
-
-const myCards = [
-  {
     front: "mój dom",
     back: "my house",
   },
@@ -164,5 +159,3 @@ const myCards = [
     back: "This is my brother.",
   },
 ];
-
-export { myCardsTitle, myCards };

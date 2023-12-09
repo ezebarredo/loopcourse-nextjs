@@ -1,12 +1,7 @@
-const myCardsTitle = [
+export const cards1_3 = [
   {
-    levelNumber: "1.3",
+    id: "1.3",
     title: "to be",
-  },
-];
-
-const myCards = [
-  {
     front: "Ja jestem.",
     back: "I am.",
   },
@@ -158,5 +153,3 @@ const myCards = [
     back: "Are you stressed?",
   },
 ];
-
-export { myCardsTitle, myCards };
