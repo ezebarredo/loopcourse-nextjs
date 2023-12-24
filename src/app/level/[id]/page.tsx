@@ -3,24 +3,15 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
-// import TypeLevels from "../../../types/types";
-import Levels from "../../cards/main";
-
-// type Level = {
-//   id: string;
-//   title: string;
-//   audio: string;
-//   image: string;
-//   front: string;
-//   back: string;
-// };
-// const levels: Level[] = Levels;
+import { Levels } from "../../../types/types";
+import LevelsData from "../../cards/main";
+import NavExample from "@/app/nav/nav copy";
+import NavLevels from "@/app/nav/nav_levels";
 
 // Returns the value of the first element in the array
 export default function GetLevel({ params }: { params: { id: string } }) {
-  const currentLevel = Levels.find((level) => level.id === params.id);
-  const currentCard = currentLevel?.cards;
-  console.log(currentCard);
+  const currentLevel = LevelsData.find((level) => level.id === params.id);
+  const currentCards = currentLevel?.cards;
 
   // STATES
   const [count, setCount] = useState(1);
@@ -29,8 +20,7 @@ export default function GetLevel({ params }: { params: { id: string } }) {
   const [rotateCard, setRotateCard] = useState(false);
 
   // NAV levels
-  // const levelsIds = level.map(({ id }) => id);
-  // console.log(levelsIds);
+  // const levelsIds = LevelsData.map(({ id }) => id);
 
   const resetFlash = () => {
     setCount(1);
@@ -40,11 +30,13 @@ export default function GetLevel({ params }: { params: { id: string } }) {
   };
 
   const nextFlash = () => {
-    if (currentFlashcard < currentCard?.length - 1) {
-      setCount(count + 1);
-      setCurrentFlashcard(currentFlashcard + 1);
-      setIsFlipped(false);
-      setRotateCard(false);
+    if (currentCards) {
+      if (currentFlashcard < currentCards.length - 1) {
+        setCount(count + 1);
+        setCurrentFlashcard(currentFlashcard + 1);
+        setIsFlipped(false);
+        setRotateCard(false);
+      }
     }
   };
 
@@ -62,18 +54,22 @@ export default function GetLevel({ params }: { params: { id: string } }) {
     setRotateCard(true);
   };
 
+  const currentCardFront = currentCards
+    ? currentCards[currentFlashcard].front
+    : "";
+  const currentCardBack = currentCards
+    ? currentCards[currentFlashcard].back
+    : "";
+
   return (
     <>
       <main className="flex-shrink-0">
-        {/* NAV */}
-        <nav className="d-flex gap-5">
-          {/* {levelsIds.map((id) => (
-            <a href={`/level/${id}`}>Level {id}</a>
-          ))} */}
-          <Link href="/level/1.1">Level 1.1</Link>
-          <Link href="/level/1.2">Level 1.2</Link>
-          <Link href="/level/1.3">Level 1.3</Link>
-        </nav>
+        <NavExample />
+        {/* {LevelsData.map(({ id }) => (
+          <a href={`/level/${id}`}>Level {id}</a>
+        ))} */}
+        {/* <Link href="/level/1.1">Level 1.1</Link>
+          <Link href="/level/1.2">Level 1.2</Link> */}
         {/*  Section Flash card */}
         <section className="py-5 bg-secondary bg-opacity-20">
           <div className="container cont-flashcard px-4 my-5">
@@ -113,7 +109,7 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                     <div className={styles.counter01}>{count}</div>
                     <div className={styles.counter50}>
                       {" "}
-                      / {currentCard?.length}
+                      / {currentCards?.length}
                     </div>
                   </div>
                 </div>
@@ -129,7 +125,11 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                     <div className="img-cover">
                       <img
                         className={`${styles.flashimage} rounded`}
-                        src={currentCard[currentFlashcard].image}
+                        src={
+                          currentCards
+                            ? currentCards[currentFlashcard].image
+                            : ""
+                        }
                       />
                     </div>
                     <div
@@ -137,9 +137,7 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                         rotateCard ? "rotate" : ""
                       }`}
                     >
-                      {isFlipped
-                        ? currentCard[currentFlashcard].back
-                        : currentCard[currentFlashcard].front}
+                      {isFlipped ? currentCardBack : currentCardFront}
                     </div>
                   </div>
                 </a>

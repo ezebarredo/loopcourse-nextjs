@@ -11,9 +11,10 @@ export type Cards = Card[];
 // LEVELS
 export type Level = {
   id: string;
+  level: string;
   title: string;
   audio: string;
   cards: Cards;
 };
 
-export type TypeLevels = Level[];
+export type Levels = Level[];
