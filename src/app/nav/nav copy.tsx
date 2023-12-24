@@ -23,7 +23,7 @@ export default function NavExample() {
   //   })
   // );
 
-  // .find return first element from array
+  // find() return first element from array
   const uniqueLevels = topLevels
     .map((topLevels) => {
       return Levels.find((level) => level.level === topLevels)?.level;
