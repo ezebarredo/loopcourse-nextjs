@@ -19,9 +19,6 @@ export default function GetLevel({ params }: { params: { id: string } }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [rotateCard, setRotateCard] = useState(false);
 
-  // NAV levels
-  // const levelsIds = LevelsData.map(({ id }) => id);
-
   const resetFlash = () => {
     setCount(1);
     setCurrentFlashcard(0);

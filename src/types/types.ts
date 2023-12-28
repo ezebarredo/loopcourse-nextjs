@@ -11,7 +11,7 @@ export type Cards = Card[];
 // LEVELS
 export type Level = {
   id: string;
-  level: string;
+  topLevel: string;
   title: string;
   audio: string;
   cards: Cards;

@@ -213,7 +213,7 @@ export const cards1_2 = [
 export const level1_2 = [
   {
     id: "1.2",
-    level: "1",
+    topLevel: "1",
     title: "Possesive Pronouns",
     audio: "/audio/1_1_audio_loopcourse.mp3",
     cards: cards1_2,
