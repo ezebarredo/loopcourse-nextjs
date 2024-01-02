@@ -1,3 +1,5 @@
+import Quiz from "./quiz/quiz";
+
 export default function Home() {
   return (
     <>

@@ -1,12 +1,12 @@
 "use client";
-import Link from "next/link";
+// import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
-import { Levels } from "../../../types/types";
+// import { Levels } from "../../../types/types";
 import LevelsData from "../../cards/main";
-import NavExample from "@/app/nav/nav copy";
-import NavLevels from "@/app/nav/nav_levels";
+import Navigation from "@/app/nav/nav";
+// import NavLevels from "@/app/nav/nav_levels";
 
 // Returns the value of the first element in the array
 export default function GetLevel({ params }: { params: { id: string } }) {
@@ -61,13 +61,7 @@ export default function GetLevel({ params }: { params: { id: string } }) {
   return (
     <>
       <main className="flex-shrink-0">
-        <NavExample />
-        {/* {LevelsData.map(({ id }) => (
-          <a href={`/level/${id}`}>Level {id}</a>
-        ))} */}
-        {/* <Link href="/level/1.1">Level 1.1</Link>
-          <Link href="/level/1.2">Level 1.2</Link> */}
-        {/*  Section Flash card */}
+        <Navigation />
         <section className="py-5 bg-secondary bg-opacity-20">
           <div className="container cont-flashcard px-4 my-5">
             <div className="row gx-5 justify-content-center">

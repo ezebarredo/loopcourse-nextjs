@@ -16,7 +16,8 @@
     "react": "^18",
     "react-bootstrap": "^2.9.1",
     "react-bootstrap-submenu": "^3.0.3",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/node": "^20",
