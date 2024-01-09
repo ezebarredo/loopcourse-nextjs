@@ -69,9 +69,6 @@ export default function Quiz() {
     setAnswerToCorrect,
   } = useStore();
 
-  const toNumber = Number(currentQuestionId) + 1;
-  const toString = String(toNumber);
-
   const getQuestion = (questionId: string) =>
     questions.find(({ id }) => id === "1");
 
