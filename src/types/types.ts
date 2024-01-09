@@ -8,14 +8,17 @@ export type Card = {
 
 export type Cards = Card[];
 
+// Quiz Questions
 export type Question = {
   id: string;
   title: string;
   answers: string[];
   correctAnswer: string;
-  userAnswer: string;
+  answeredCorrectly: boolean;
   gramarLevel: string;
 };
+
+export type Questions = Question[];
 
 // LEVELS
 export type Level = {

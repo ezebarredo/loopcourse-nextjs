@@ -1,69 +1,91 @@
 import { create } from "zustand";
-import Levels from "../cards/main";
+import { Questions } from "@/types/types";
 
-const useStore = create((set) => ({
-  index: 0,
-  correctAnswer: "",
-  userQuestion: "",
-  nextQuestion: () =>
-    set((state: { index: number }) => ({ index: state.index + 1 })),
-  reset: () => set({ index: 0 }),
-}));
+type Store = {
+  questions: Questions;
+  currentQuestionId: string;
+  answeredCorrectly: boolean;
+  nextQuestion: () => void;
+  reset: () => void;
+  setAnswerToCorrect: (questionId: string) => void;
+};
 
-export default function Quiz() {
-  const questions = [
+const useStore = create<Store>()((set) => ({
+  questions: [
     {
       id: "1",
       title: "She ______ funny.",
-
       answers: ["is", "am", "are"],
       correctAnswer: "is",
-      userAnswer: "",
+      answeredCorrectly: false,
       gramarLevel: "1.1 Subject Pronouns",
     },
     {
       id: "2",
-      title: "This is Paul and ..... wife.",
+      title: "This is Paul and ______ wife.",
       answers: ["his", "my", "her"],
       correctAnswer: "his",
-      userAnswer: "",
+      answeredCorrectly: false,
       gramarLevel: "1.2 Possessive Adjectives",
     },
     {
       id: "3",
-      title: "We ...... tired.",
+      title: "We ______ tired.",
       answers: ["are not", "be not", "is not"],
       correctAnswer: "are not",
-      userAnswer: "",
+      answeredCorrectly: false,
       gramarLevel: "1.3 To be",
     },
-  ];
+  ],
 
-  const { index, nextQuestion, reset } = useStore();
-  // const questionId = "1";
-  // const getQuestion = questions.find((question) => question.id === questionId);
-  const shuffle = (array: string[]) => {
-    return array.sort(() => Math.random() - 0.5);
-  };
+  currentQuestionId: "1",
+  answeredCorrectly: false,
 
-  let correctAnswers: string[] = [];
-  let incorrectAnswers: string[] = [];
+  nextQuestion: () =>
+    set((state: Store) => ({
+      ...state,
+      currentQuestionId: state.currentQuestionId + 1,
+    })),
+
+  reset: () => set({ currentQuestionId: "1" }),
+
+  setAnswerToCorrect: (questionId: string) =>
+    set((state: Store) => ({
+      ...state,
+      questions: state.questions.map((question) =>
+        question.id === questionId
+          ? { ...question, answerCorrectly: true }
+          : question
+      ),
+    })),
+}));
+
+export default function Quiz() {
+  const {
+    questions,
+    currentQuestionId,
+    nextQuestion,
+    reset,
+    setAnswerToCorrect,
+  } = useStore();
+
+  const toNumber = Number(currentQuestionId) + 1;
+  const toString = String(toNumber);
+
+  const getQuestion = (questionId: string) =>
+    questions.find(({ id }) => id === "1");
+
+  const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
   const answerClick = (event: { target: any }) => {
-    const UserAnswer = event.target.innerHTML;
-    if (UserAnswer === questions[index].correctAnswer) {
-      console.log("Correct!");
-      correctAnswers.push(questions[index].gramarLevel);
-    } else {
-      console.log("Incorrect");
-      incorrectAnswers.push(questions[index].gramarLevel);
-    }
-    console.log(
-      "Correct Answer",
-      correctAnswers,
-      "incorrect Answer",
-      incorrectAnswers
-    );
+    const userClickAnswer = event.target.innerHTML;
+    setAnswerToCorrect(currentQuestionId);
+
+    // const questionsWithChangedAnswer = questions.map((question) => {
+    //   question.correctAnswer === userClickAnswer
+    //     ? { ...question, answeredCorrectly: true }
+    //     : question;
+    // });
   };
 
   return (
@@ -73,13 +95,13 @@ export default function Quiz() {
           <div className="container px-4 my-5">
             <h2 className="display-5 fw-bold">Quiz Level</h2>
             <br />
-            {index + 1} / {questions.length}
+            {} / {questions.length}
             <div className="fs-3 fw-normal text-dark my-2">
-              {questions[index]?.title}
+              {getQuestion(currentQuestionId)?.title}
             </div>
-            {questions[index]?.answers.map((answer) => (
+            {getQuestion(currentQuestionId)?.answers.map((answer) => (
               <button
-                // key={index + 1} TODO: key id for each answer
+                // key={currentQuestion + 1} TODO: key id for each answer
                 type="button"
                 className="btn btnAnswer fs-4 btn-light text-dark my-3 me-3 mb-5"
                 onClick={answerClick}
@@ -100,6 +122,13 @@ export default function Quiz() {
                 <button onClick={reset} className="btn-reset btn btn-dark">
                   Reset
                 </button>
+                {/* <button
+                  onClick={setAnswerToCorrect}
+                  className="btn-reset btn btn-dark"
+                >
+                  setAnswerCorrect
+                </button>
+                {setAnswerToCorrect} */}
               </div>
             </div>
           </div>
