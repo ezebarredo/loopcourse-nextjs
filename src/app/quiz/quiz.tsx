@@ -44,7 +44,7 @@ const useStore = create<Store>()((set) => ({
   nextQuestion: () =>
     set((state: Store) => ({
       ...state,
-      currentQuestionId: state.currentQuestionId + 1,
+      currentQuestionId: String(Number(state.currentQuestionId) + 1),
     })),
 
   reset: () => set({ currentQuestionId: "1" }),
@@ -70,7 +70,7 @@ export default function Quiz() {
   } = useStore();
 
   const getQuestion = (questionId: string) =>
-    questions.find(({ id }) => id === "1");
+    questions.find(({ id }) => id === questionId);
 
   const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
@@ -92,7 +92,7 @@ export default function Quiz() {
           <div className="container px-4 my-5">
             <h2 className="display-5 fw-bold">Quiz Level</h2>
             <br />
-            {} / {questions.length}
+            {currentQuestionId} / {questions.length}
             <div className="fs-3 fw-normal text-dark my-2">
               {getQuestion(currentQuestionId)?.title}
             </div>
