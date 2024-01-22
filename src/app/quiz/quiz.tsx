@@ -1,14 +1,5 @@
 import { create } from "zustand";
-import { Questions } from "@/types/types";
-
-type Store = {
-  questions: Questions;
-  currentQuestionId: string;
-  answeredCorrectly: boolean;
-  nextQuestion: () => void;
-  reset: () => void;
-  setAnswerToCorrect: (questionId: string) => void;
-};
+import { Store } from "@/types/types";
 
 const useStore = create<Store>()((set) => ({
   questions: [
@@ -16,9 +7,13 @@ const useStore = create<Store>()((set) => ({
       id: "1",
       title: "She ______ funny.",
       answers: ["is", "am", "are"],
+      // answers: [{id:"1",answer:"is", isClicked: false},
+      // {id:"2", answer: "am", isClicked: false},
+      // {id:"3", answer: "are", isClicked: false}],
       correctAnswer: "is",
       answeredCorrectly: false,
       gramarLevel: "1.1 Subject Pronouns",
+      userAnswer: null,
     },
     {
       id: "2",
@@ -27,6 +22,7 @@ const useStore = create<Store>()((set) => ({
       correctAnswer: "his",
       answeredCorrectly: false,
       gramarLevel: "1.2 Possessive Adjectives",
+      userAnswer: null,
     },
     {
       id: "3",
@@ -35,11 +31,15 @@ const useStore = create<Store>()((set) => ({
       correctAnswer: "are not",
       answeredCorrectly: false,
       gramarLevel: "1.3 To be",
+      userAnswer: null,
     },
   ],
 
   currentQuestionId: "1",
-  answeredCorrectly: false,
+
+  btnClicked: false,
+
+  // answeredCorrectly: false,
 
   nextQuestion: () =>
     set((state: Store) => ({
@@ -54,9 +54,33 @@ const useStore = create<Store>()((set) => ({
       ...state,
       questions: state.questions.map((question) =>
         question.id === questionId
-          ? { ...question, answerCorrectly: true }
+          ? { ...question, answeredCorrectly: true }
           : question
       ),
+    })),
+
+  setAnswerToIncorrect: (questionId: string) =>
+    set((state: Store) => ({
+      ...state,
+      questions: state.questions.map((question) =>
+        question.id === questionId
+          ? { ...question, answeredCorrectly: false }
+          : question
+      ),
+    })),
+
+  setUserAnswer: (questionId: string, userAnswer: string) =>
+    set((state: Store) => ({
+      ...state,
+      questions: state.questions.map((question) =>
+        question.id === questionId ? { ...question, userAnswer } : question
+      ),
+    })),
+
+  setbtnClicked: () =>
+    set((state: Store) => ({
+      ...state,
+      btnClicked: !state.btnClicked,
     })),
 }));
 
@@ -64,9 +88,13 @@ export default function Quiz() {
   const {
     questions,
     currentQuestionId,
+    btnClicked,
     nextQuestion,
     reset,
     setAnswerToCorrect,
+    setAnswerToIncorrect,
+    setUserAnswer,
+    setbtnClicked,
   } = useStore();
 
   const getQuestion = (questionId: string) =>
@@ -75,14 +103,19 @@ export default function Quiz() {
   const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
   const answerClick = (event: { target: any }) => {
-    const userClickAnswer = event.target.innerHTML;
-    setAnswerToCorrect(currentQuestionId);
-
-    // const questionsWithChangedAnswer = questions.map((question) => {
-    //   question.correctAnswer === userClickAnswer
-    //     ? { ...question, answeredCorrectly: true }
-    //     : question;
-    // });
+    //TODO: change btn background color when user click
+    const userClick = event.target;
+    setbtnClicked();
+    btnClicked
+      ? (userClick.style.background = "white")
+      : (userClick.style.background = "green");
+    const userAnswer = event.target.innerHTML;
+    setUserAnswer(currentQuestionId, userAnswer);
+    if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
+      setAnswerToCorrect(currentQuestionId);
+    } else {
+      setAnswerToIncorrect(currentQuestionId);
+    }
   };
 
   return (
@@ -96,11 +129,11 @@ export default function Quiz() {
             <div className="fs-3 fw-normal text-dark my-2">
               {getQuestion(currentQuestionId)?.title}
             </div>
-            {getQuestion(currentQuestionId)?.answers.map((answer) => (
+            {getQuestion(currentQuestionId)?.answers.map((answer, index) => (
               <button
-                // key={currentQuestion + 1} TODO: key id for each answer
+                key={index}
                 type="button"
-                className="btn btnAnswer fs-4 btn-light text-dark my-3 me-3 mb-5"
+                className="btn btnAnswer btn-light fs-4 text-dark my-3 me-3 mb-5"
                 onClick={answerClick}
               >
                 {answer}
@@ -119,14 +152,14 @@ export default function Quiz() {
                 <button onClick={reset} className="btn-reset btn btn-dark">
                   Reset
                 </button>
-                {/* <button
-                  onClick={setAnswerToCorrect}
-                  className="btn-reset btn btn-dark"
-                >
-                  setAnswerCorrect
-                </button>
-                {setAnswerToCorrect} */}
               </div>
+              {getQuestion(currentQuestionId)?.answeredCorrectly
+                ? "True"
+                : "False"}
+              <br />
+              {getQuestion(currentQuestionId)?.userAnswer}
+              <br />
+              {btnClicked ? "Active" : "Inactive"}
             </div>
           </div>
         </section>
@@ -136,16 +169,4 @@ export default function Quiz() {
 }
 
 {
-  /* {questions.map((question) => {
-        return (
-          <>
-            <br />
-            <p>{question.title}</p>
-            {question.answers.map((answer) => (
-              <button key={question.id}>{answer}</button>
-            ))}
-            <br />
-          </>
-        );
-      })} */
 }
