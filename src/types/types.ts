@@ -8,11 +8,19 @@ export type Card = {
 
 export type Cards = Card[];
 
+export type Answer = {
+  id: string;
+  answer: string;
+  isChosen: boolean;
+};
+
+export type Answers = Answer[];
+
 // Quiz Questions
 export type Question = {
   id: string;
   title: string;
-  answers: string[];
+  answers: Answers;
   correctAnswer: string;
   answeredCorrectly: boolean;
   gramarLevel: string;
@@ -32,7 +40,7 @@ export type Store = {
   setAnswerToCorrect: (questionId: string) => void;
   setAnswerToIncorrect: (questionId: string) => void;
   setUserAnswer: (questionId: string, userAnswer: string) => void;
-  setbtnClicked: () => void;
+  setIsChosen: (questionId: string, userAnswer: string) => void;
 };
 
 // LEVELS

@@ -6,10 +6,11 @@ const useStore = create<Store>()((set) => ({
     {
       id: "1",
       title: "She ______ funny.",
-      answers: ["is", "am", "are"],
-      // answers: [{id:"1",answer:"is", isClicked: false},
-      // {id:"2", answer: "am", isClicked: false},
-      // {id:"3", answer: "are", isClicked: false}],
+      answers: [
+        { id: "1", answer: "is", isChosen: false },
+        { id: "2", answer: "am", isChosen: false },
+        { id: "3", answer: "are", isChosen: false },
+      ],
       correctAnswer: "is",
       answeredCorrectly: false,
       gramarLevel: "1.1 Subject Pronouns",
@@ -18,7 +19,12 @@ const useStore = create<Store>()((set) => ({
     {
       id: "2",
       title: "This is Paul and ______ wife.",
-      answers: ["his", "my", "her"],
+      answers: [
+        { id: "1", answer: "his", isChosen: false },
+        ,
+        { id: "2", answer: "my", isChosen: false },
+        { id: "3", answer: "her", isChosen: false },
+      ],
       correctAnswer: "his",
       answeredCorrectly: false,
       gramarLevel: "1.2 Possessive Adjectives",
@@ -27,7 +33,11 @@ const useStore = create<Store>()((set) => ({
     {
       id: "3",
       title: "We ______ tired.",
-      answers: ["are not", "be not", "is not"],
+      answers: [
+        { id: "1", answer: "are not", isChosen: false },
+        { id: "2", answer: "be not", isChosen: false },
+        { id: "3", answer: "is not", isChosen: false },
+      ],
       correctAnswer: "are not",
       answeredCorrectly: false,
       gramarLevel: "1.3 To be",
@@ -36,8 +46,6 @@ const useStore = create<Store>()((set) => ({
   ],
 
   currentQuestionId: "1",
-
-  btnClicked: false,
 
   // answeredCorrectly: false,
 
@@ -77,10 +85,24 @@ const useStore = create<Store>()((set) => ({
       ),
     })),
 
-  setbtnClicked: () =>
+  setIsChosen: (questionId: string, userAnswer: string) =>
     set((state: Store) => ({
       ...state,
-      btnClicked: !state.btnClicked,
+      questions: state.questions.map((question) =>
+        question.id === questionId
+          ? {
+              ...question,
+              answers: question.answers.map((answer) =>
+                answer.answer === userAnswer
+                  ? {
+                      ...answer,
+                      isChosen: !answer.isChosen,
+                    }
+                  : answer
+              ),
+            }
+          : question
+      ),
     })),
 }));
 
@@ -94,7 +116,7 @@ export default function Quiz() {
     setAnswerToCorrect,
     setAnswerToIncorrect,
     setUserAnswer,
-    setbtnClicked,
+    setIsChosen,
   } = useStore();
 
   const getQuestion = (questionId: string) =>
@@ -103,13 +125,9 @@ export default function Quiz() {
   const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
   const answerClick = (event: { target: any }) => {
-    //TODO: change btn background color when user click
-    const userClick = event.target;
-    setbtnClicked();
-    btnClicked
-      ? (userClick.style.background = "white")
-      : (userClick.style.background = "green");
+    //TODO: change answer.isChosen: true or false => toggle
     const userAnswer = event.target.innerHTML;
+    setIsChosen(currentQuestionId, userAnswer);
     setUserAnswer(currentQuestionId, userAnswer);
     if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
       setAnswerToCorrect(currentQuestionId);
@@ -129,14 +147,21 @@ export default function Quiz() {
             <div className="fs-3 fw-normal text-dark my-2">
               {getQuestion(currentQuestionId)?.title}
             </div>
-            {getQuestion(currentQuestionId)?.answers.map((answer, index) => (
+            {getQuestion(currentQuestionId)?.answers.map((answer) => (
               <button
-                key={index}
+                key={Number(answer.id)}
                 type="button"
-                className="btn btnAnswer btn-light fs-4 text-dark my-3 me-3 mb-5"
+                className={`btn btnAnswer fs-4  my-3 me-3 mb-5 ${
+                  answer.isChosen
+                    ? "btn-success text-light"
+                    : "btn-light text-dark"
+                }`}
+                // style={{
+                //   color: answer.isChosen ? "green" : "white",
+                // }}
                 onClick={answerClick}
               >
-                {answer}
+                {answer.answer}
               </button>
             ))}
             <div className="d-flex gap-2">
@@ -158,8 +183,6 @@ export default function Quiz() {
                 : "False"}
               <br />
               {getQuestion(currentQuestionId)?.userAnswer}
-              <br />
-              {btnClicked ? "Active" : "Inactive"}
             </div>
           </div>
         </section>
