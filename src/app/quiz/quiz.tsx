@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Store } from "@/types/types";
 
+// DATA
 const useStore = create<Store>()((set) => ({
   questions: [
     {
@@ -21,7 +22,6 @@ const useStore = create<Store>()((set) => ({
       title: "This is Paul and ______ wife.",
       answers: [
         { id: "1", answer: "his", isChosen: false },
-        ,
         { id: "2", answer: "my", isChosen: false },
         { id: "3", answer: "her", isChosen: false },
       ],
@@ -47,8 +47,6 @@ const useStore = create<Store>()((set) => ({
 
   currentQuestionId: "1",
 
-  // answeredCorrectly: false,
-
   nextQuestion: () =>
     set((state: Store) => ({
       ...state,
@@ -56,6 +54,18 @@ const useStore = create<Store>()((set) => ({
     })),
 
   reset: () => set({ currentQuestionId: "1" }),
+
+  //TODO: check again this function to learn
+  showIncorrectAnswersLevels: () =>
+    set((state: Store) => ({
+      ...state,
+      questions: state.questions
+        .filter((answer) => answer.answeredCorrectly === false)
+        .map((answer) => ({
+          ...answer,
+          grammarLevel: answer.gramarLevel,
+        })),
+    })),
 
   setAnswerToCorrect: (questionId: string) =>
     set((state: Store) => ({
@@ -92,13 +102,17 @@ const useStore = create<Store>()((set) => ({
         question.id === questionId
           ? {
               ...question,
-              answers: question.answers.map((answer) =>
-                answer.answer === userAnswer
-                  ? {
-                      ...answer,
-                      isChosen: !answer.isChosen,
-                    }
-                  : answer
+              answers: question.answers.map(
+                (answer) => ({
+                  ...answer,
+                  isChosen: answer.answer === userAnswer,
+                })
+                // answer.answer === userAnswer
+                //   ? {
+                //       ...answer,
+                //       isChosen: true,
+                //     }
+                //   : { ...answer, isChosen: false }
               ),
             }
           : question
@@ -110,24 +124,28 @@ export default function Quiz() {
   const {
     questions,
     currentQuestionId,
-    btnClicked,
     nextQuestion,
     reset,
     setAnswerToCorrect,
     setAnswerToIncorrect,
     setUserAnswer,
     setIsChosen,
+    showIncorrectAnswersLevels,
   } = useStore();
 
+  //get First Question from array of object
   const getQuestion = (questionId: string) =>
     questions.find(({ id }) => id === questionId);
 
-  const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
+  //TODO: add shuffle to answers btns
+  // const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
+  // AnswerClickUser
   const answerClick = (event: { target: any }) => {
-    //TODO: change answer.isChosen: true or false => toggle
     const userAnswer = event.target.innerHTML;
+    // 1 answer.setIsChosen to true of false. No toggle
     setIsChosen(currentQuestionId, userAnswer);
+    // 2 render array again in UI answer.answer === userAnswer
     setUserAnswer(currentQuestionId, userAnswer);
     if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
       setAnswerToCorrect(currentQuestionId);
@@ -136,12 +154,22 @@ export default function Quiz() {
     }
   };
 
+  // onClick getGrammarLevels
+  const getGrammarLevels = () => showIncorrectAnswersLevels();
+
+  // Testing sumAnswers shows array of objects answeredCorrectly === false
+  const showIncorrectAnswersLevel = questions
+    .filter((answer) => answer.answeredCorrectly === false)
+    .map((answer) => answer.gramarLevel)
+    .join("");
+  console.log(showIncorrectAnswersLevel);
+
   return (
     <>
       <main className="flex-shrink-0">
         <section className="py-5 bg-secondary bg-opacity-50">
           <div className="container px-4 my-5">
-            <h2 className="display-5 fw-bold">Quiz Level</h2>
+            <h2 className="display-5 fw-bold">Quiz Level Test</h2>
             <br />
             {currentQuestionId} / {questions.length}
             <div className="fs-3 fw-normal text-dark my-2">
@@ -156,9 +184,6 @@ export default function Quiz() {
                     ? "btn-success text-light"
                     : "btn-light text-dark"
                 }`}
-                // style={{
-                //   color: answer.isChosen ? "green" : "white",
-                // }}
                 onClick={answerClick}
               >
                 {answer.answer}
@@ -177,6 +202,15 @@ export default function Quiz() {
                 <button onClick={reset} className="btn-reset btn btn-dark">
                   Reset
                 </button>
+              </div>
+              <div>
+                <button
+                  onClick={getGrammarLevels}
+                  className="btn-showIncorrectAnswers btn btn-dark"
+                >
+                  Show Results
+                </button>
+                {showIncorrectAnswersLevel}
               </div>
               {getQuestion(currentQuestionId)?.answeredCorrectly
                 ? "True"

@@ -34,13 +34,14 @@ export type Store = {
   questions: Questions;
   currentQuestionId: string;
   // answeredCorrectly: boolean;
-  btnClicked: boolean;
+  // btnClicked: boolean;
   nextQuestion: () => void;
   reset: () => void;
   setAnswerToCorrect: (questionId: string) => void;
   setAnswerToIncorrect: (questionId: string) => void;
   setUserAnswer: (questionId: string, userAnswer: string) => void;
   setIsChosen: (questionId: string, userAnswer: string) => void;
+  showIncorrectAnswersLevels: () => void;
 };
 
 // LEVELS
