@@ -53,10 +53,11 @@ const useStore = create<Store>()((set) => ({
       currentQuestionId: String(Number(state.currentQuestionId) + 1),
     })),
 
+  // TODO: reset isChosen: false, answeredCorrectly: false, userAnswer: null
   reset: () => set({ currentQuestionId: "1" }),
 
-  //TODO: check again this function to learn
-  showIncorrectAnswersLevels: () =>
+  //TODO: check again this function to learn...
+  getIncorrectAnswersLevels: () =>
     set((state: Store) => ({
       ...state,
       questions: state.questions
@@ -95,6 +96,7 @@ const useStore = create<Store>()((set) => ({
       ),
     })),
 
+  //TODO: re-check fuction done during lesson
   setIsChosen: (questionId: string, userAnswer: string) =>
     set((state: Store) => ({
       ...state,
@@ -138,14 +140,12 @@ export default function Quiz() {
     questions.find(({ id }) => id === questionId);
 
   //TODO: add shuffle to answers btns
-  // const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
+  const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
   // AnswerClickUser
   const answerClick = (event: { target: any }) => {
     const userAnswer = event.target.innerHTML;
-    // 1 answer.setIsChosen to true of false. No toggle
     setIsChosen(currentQuestionId, userAnswer);
-    // 2 render array again in UI answer.answer === userAnswer
     setUserAnswer(currentQuestionId, userAnswer);
     if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
       setAnswerToCorrect(currentQuestionId);
@@ -154,15 +154,11 @@ export default function Quiz() {
     }
   };
 
-  // onClick getGrammarLevels
-  const getGrammarLevels = () => showIncorrectAnswersLevels();
-
-  // Testing sumAnswers shows array of objects answeredCorrectly === false
-  const showIncorrectAnswersLevel = questions
-    .filter((answer) => answer.answeredCorrectly === false)
-    .map((answer) => answer.gramarLevel)
-    .join("");
-  console.log(showIncorrectAnswersLevel);
+  // onClick showIncorrectAnswersLevels(Store) > getGrammarLevels(UI)
+  // const getGrammarLevels = () =>
+  //   questions
+  //     .filter((answer) => answer.answeredCorrectly === false)
+  //     .map((answer) => answer.gramarLevel);
 
   return (
     <>
@@ -193,9 +189,18 @@ export default function Quiz() {
               <div>
                 <button
                   onClick={nextQuestion}
-                  className="btn-next btn btn-primary"
+                  className={`btn-next btn btn-primary`}
+                  // ${
+                  // Number(currentQuestionId) != questions.length
+                  //   ? ""
+                  //   : "disabled"
+                  // }`}
                 >
-                  Następny
+                  {`${
+                    Number(currentQuestionId) < questions.length
+                      ? "Nastepny"
+                      : "Results"
+                  }`}
                 </button>
               </div>
               <div>
@@ -204,26 +209,53 @@ export default function Quiz() {
                 </button>
               </div>
               <div>
-                <button
-                  onClick={getGrammarLevels}
-                  className="btn-showIncorrectAnswers btn btn-dark"
+                {/* <button
+                  onClick={showIncorrectAnswersLevels}
+                  className={`btn-showIncorrectAnswers btn btn-success ${
+                    Number(currentQuestionId) != questions.length
+                      ? "disabled"
+                      : ""
+                  }`}
                 >
-                  Show Results
-                </button>
-                {showIncorrectAnswersLevel}
+                  Results
+                </button> */}
+                <br />
               </div>
               {getQuestion(currentQuestionId)?.answeredCorrectly
                 ? "True"
                 : "False"}
-              <br />
               {getQuestion(currentQuestionId)?.userAnswer}
+            </div>
+            <div>
+              <p
+                className={
+                  Number(currentQuestionId) <= questions.length
+                    ? "d-none"
+                    : "d-block"
+                }
+              >
+                We recommmend you study the following levels:
+              </p>
+              {questions
+                .filter((answer) => answer.answeredCorrectly === false)
+                .map((answer, index) => (
+                  <li
+                    className={
+                      Number(currentQuestionId) <= questions.length
+                        ? "d-none"
+                        : "d-block"
+                    }
+                    key={index}
+                  >
+                    <p>
+                      <b>{answer.gramarLevel}</b>
+                    </p>
+                  </li>
+                ))}
             </div>
           </div>
         </section>
       </main>
     </>
   );
-}
-
-{
 }

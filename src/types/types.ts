@@ -41,7 +41,7 @@ export type Store = {
   setAnswerToIncorrect: (questionId: string) => void;
   setUserAnswer: (questionId: string, userAnswer: string) => void;
   setIsChosen: (questionId: string, userAnswer: string) => void;
-  showIncorrectAnswersLevels: () => void;
+  getIncorrectAnswersLevels: () => void;
 };
 
 // LEVELS
