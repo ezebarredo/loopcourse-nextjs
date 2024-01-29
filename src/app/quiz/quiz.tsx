@@ -132,7 +132,7 @@ export default function Quiz() {
     setAnswerToIncorrect,
     setUserAnswer,
     setIsChosen,
-    showIncorrectAnswersLevels,
+    getIncorrectAnswersLevels,
   } = useStore();
 
   //get First Question from array of object
@@ -210,7 +210,7 @@ export default function Quiz() {
               </div>
               <div>
                 {/* <button
-                  onClick={showIncorrectAnswersLevels}
+                  onClick={getIncorrectAnswersLevels}
                   className={`btn-showIncorrectAnswers btn btn-success ${
                     Number(currentQuestionId) != questions.length
                       ? "disabled"
