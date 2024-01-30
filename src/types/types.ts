@@ -42,6 +42,7 @@ export type Store = {
   setUserAnswer: (questionId: string, userAnswer: string) => void;
   setIsChosen: (questionId: string, userAnswer: string) => void;
   getIncorrectAnswersLevels: () => void;
+  showResults: boolean;
 };
 
 // LEVELS

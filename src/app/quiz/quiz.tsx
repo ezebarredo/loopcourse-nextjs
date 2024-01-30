@@ -46,6 +46,7 @@ const useStore = create<Store>()((set) => ({
   ],
 
   currentQuestionId: "1",
+  showResults: false,
 
   nextQuestion: () =>
     set((state: Store) => ({
@@ -61,7 +62,7 @@ const useStore = create<Store>()((set) => ({
     set((state: Store) => ({
       ...state,
       questions: state.questions
-        .filter((answer) => answer.answeredCorrectly === false)
+        .filter((answer) => !answer.answeredCorrectly)
         .map((answer) => ({
           ...answer,
           grammarLevel: answer.gramarLevel,
@@ -154,11 +155,48 @@ export default function Quiz() {
     }
   };
 
-  // onClick showIncorrectAnswersLevels(Store) > getGrammarLevels(UI)
-  // const getGrammarLevels = () =>
-  //   questions
-  //     .filter((answer) => answer.answeredCorrectly === false)
-  //     .map((answer) => answer.gramarLevel);
+  const isNextQuestionAvailable = () =>
+    Number(currentQuestionId) < questions.length;
+
+  const nextQuestionBtn = (
+    <button
+      onClick={nextQuestion}
+      className={`btn-next btn btn-primary
+                  ${isNextQuestionAvailable() ? "" : "disabled"}`}
+    >
+      Nastepny
+    </button>
+  );
+
+  //TODO: Function from Store getIncorrectAnswersLevels() is crashing app
+  const showResults = () => {
+    // getIncorrectAnswersLevels();
+    return (
+      <div>
+        <p className={isNextQuestionAvailable() ? "d-none" : "d-block"}>
+          We recommmend you study the following levels:
+        </p>
+        {questions
+          .filter((answer) => answer.answeredCorrectly === false)
+          .map((answer, index) => (
+            <li
+              className={isNextQuestionAvailable() ? "d-none" : "d-block"}
+              key={index}
+            >
+              <p>
+                <b>{answer.gramarLevel}</b>
+              </p>
+            </li>
+          ))}
+      </div>
+    );
+  };
+
+  const resultsBtn = (
+    <button onClick={showResults} className={`btn btn-success`}>
+      Results
+    </button>
+  );
 
   return (
     <>
@@ -187,21 +225,7 @@ export default function Quiz() {
             ))}
             <div className="d-flex gap-2">
               <div>
-                <button
-                  onClick={nextQuestion}
-                  className={`btn-next btn btn-primary`}
-                  // ${
-                  // Number(currentQuestionId) != questions.length
-                  //   ? ""
-                  //   : "disabled"
-                  // }`}
-                >
-                  {`${
-                    Number(currentQuestionId) < questions.length
-                      ? "Nastepny"
-                      : "Results"
-                  }`}
-                </button>
+                {isNextQuestionAvailable() ? nextQuestionBtn : resultsBtn}
               </div>
               <div>
                 <button onClick={reset} className="btn-reset btn btn-dark">
@@ -209,16 +233,6 @@ export default function Quiz() {
                 </button>
               </div>
               <div>
-                {/* <button
-                  onClick={getIncorrectAnswersLevels}
-                  className={`btn-showIncorrectAnswers btn btn-success ${
-                    Number(currentQuestionId) != questions.length
-                      ? "disabled"
-                      : ""
-                  }`}
-                >
-                  Results
-                </button> */}
                 <br />
               </div>
               {getQuestion(currentQuestionId)?.answeredCorrectly
@@ -226,33 +240,8 @@ export default function Quiz() {
                 : "False"}
               {getQuestion(currentQuestionId)?.userAnswer}
             </div>
-            <div>
-              <p
-                className={
-                  Number(currentQuestionId) <= questions.length
-                    ? "d-none"
-                    : "d-block"
-                }
-              >
-                We recommmend you study the following levels:
-              </p>
-              {questions
-                .filter((answer) => answer.answeredCorrectly === false)
-                .map((answer, index) => (
-                  <li
-                    className={
-                      Number(currentQuestionId) <= questions.length
-                        ? "d-none"
-                        : "d-block"
-                    }
-                    key={index}
-                  >
-                    <p>
-                      <b>{answer.gramarLevel}</b>
-                    </p>
-                  </li>
-                ))}
-            </div>
+            {/* TODO: Render showResults list when onClick resultsBtn */}
+            {/* Render showResults when onClick resultsBtn */}
           </div>
         </section>
       </main>
