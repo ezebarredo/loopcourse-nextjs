@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { Store } from "@/types/types";
 
 // DATA
+// Store should only store properties (data) and update functions (set).
 const useStore = create<Store>()((set) => ({
   questions: [
     {
@@ -56,18 +57,6 @@ const useStore = create<Store>()((set) => ({
 
   // TODO: reset isChosen: false, answeredCorrectly: false, userAnswer: null
   reset: () => set({ currentQuestionId: "1" }),
-
-  //TODO: check again this function to learn...
-  getIncorrectAnswersLevels: () =>
-    set((state: Store) => ({
-      ...state,
-      questions: state.questions
-        .filter((answer) => !answer.answeredCorrectly)
-        .map((answer) => ({
-          ...answer,
-          grammarLevel: answer.gramarLevel,
-        })),
-    })),
 
   setAnswerToCorrect: (questionId: string) =>
     set((state: Store) => ({
@@ -133,10 +122,9 @@ export default function Quiz() {
     setAnswerToIncorrect,
     setUserAnswer,
     setIsChosen,
-    getIncorrectAnswersLevels,
   } = useStore();
 
-  //get First Question from array of object
+  //get First Question from array of objects
   const getQuestion = (questionId: string) =>
     questions.find(({ id }) => id === questionId);
 
@@ -168,23 +156,24 @@ export default function Quiz() {
     </button>
   );
 
-  //TODO: Function from Store getIncorrectAnswersLevels() is crashing app
+  // const getIncorrectAnswersLevels = () => {
+  //   return questions
+  //     .filter((question) => !question.answeredCorrectly)
+  //     .map((question) => question.gramarLevel);
+  // };
+
+  const toggleHideResults = isNextQuestionAvailable() ? "d-none" : "d-block";
+
   const showResults = () => {
-    // getIncorrectAnswersLevels();
     return (
-      <div>
-        <p className={isNextQuestionAvailable() ? "d-none" : "d-block"}>
-          We recommmend you study the following levels:
-        </p>
+      <div className={toggleHideResults}>
+        <p>We recommmend you study the following levels:</p>
         {questions
-          .filter((answer) => answer.answeredCorrectly === false)
-          .map((answer, index) => (
-            <li
-              className={isNextQuestionAvailable() ? "d-none" : "d-block"}
-              key={index}
-            >
+          .filter((question) => !question.answeredCorrectly)
+          .map((question, index) => (
+            <li key={index}>
               <p>
-                <b>{answer.gramarLevel}</b>
+                <b>{question.gramarLevel}</b>
               </p>
             </li>
           ))}
@@ -241,7 +230,7 @@ export default function Quiz() {
               {getQuestion(currentQuestionId)?.userAnswer}
             </div>
             {/* TODO: Render showResults list when onClick resultsBtn */}
-            {/* Render showResults when onClick resultsBtn */}
+            {showResults()}
           </div>
         </section>
       </main>

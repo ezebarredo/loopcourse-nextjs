@@ -1,4 +1,4 @@
-// CARDS
+// CARDS - flashcards
 export type Card = {
   id: string;
   front: string;
@@ -8,6 +8,7 @@ export type Card = {
 
 export type Cards = Card[];
 
+// Quiz answers
 export type Answer = {
   id: string;
   answer: string;
@@ -33,19 +34,15 @@ export type Questions = Question[];
 export type Store = {
   questions: Questions;
   currentQuestionId: string;
-  // answeredCorrectly: boolean;
-  // btnClicked: boolean;
   nextQuestion: () => void;
   reset: () => void;
   setAnswerToCorrect: (questionId: string) => void;
   setAnswerToIncorrect: (questionId: string) => void;
   setUserAnswer: (questionId: string, userAnswer: string) => void;
   setIsChosen: (questionId: string, userAnswer: string) => void;
-  getIncorrectAnswersLevels: () => void;
-  showResults: boolean;
 };
 
-// LEVELS
+// LEVELS - Flashcards
 export type Level = {
   id: string;
   topLevel: string;
