@@ -34,12 +34,16 @@ export type Questions = Question[];
 export type Store = {
   questions: Questions;
   currentQuestionId: string;
+  areResultsShown: boolean;
+  // isAnswerSelected: boolean;
   nextQuestion: () => void;
-  reset: () => void;
+  previousQuestion: () => void;
   setAnswerToCorrect: (questionId: string) => void;
   setAnswerToIncorrect: (questionId: string) => void;
   setUserAnswer: (questionId: string, userAnswer: string) => void;
   setIsChosen: (questionId: string, userAnswer: string) => void;
+  setAreResultsShown: (bool: boolean) => void;
+  // setAnswerSelected: (bool: boolean) => void;
 };
 
 // LEVELS - Flashcards

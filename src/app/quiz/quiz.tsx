@@ -1,8 +1,18 @@
 import { create } from "zustand";
 import { Store } from "@/types/types";
 
+// 1) TODO: user cannot click nextBtn before choosing an answer --> SOLVED
+
+// 2) user see results only after clicking submitBtn -> SOLVED
+
+// 3) Rename reset to previousQuestion or other. -> SOLVED
+
+// 4) JSX components into separate files.
+
+// 5) Store into own file
+
 // DATA
-// Store should only store properties (data) and update functions (set).
+// Store ONLY store properties (data) and update functions (set).
 const useStore = create<Store>()((set) => ({
   questions: [
     {
@@ -47,7 +57,7 @@ const useStore = create<Store>()((set) => ({
   ],
 
   currentQuestionId: "1",
-  showResults: false,
+  areResultsShown: false,
 
   nextQuestion: () =>
     set((state: Store) => ({
@@ -55,8 +65,12 @@ const useStore = create<Store>()((set) => ({
       currentQuestionId: String(Number(state.currentQuestionId) + 1),
     })),
 
-  // TODO: reset isChosen: false, answeredCorrectly: false, userAnswer: null
-  reset: () => set({ currentQuestionId: "1" }),
+  previousQuestion: () =>
+    set((state: Store) => ({
+      ...state,
+      currentQuestionId: String(Number(state.currentQuestionId) - 1),
+      areResultsShown: false,
+    })),
 
   setAnswerToCorrect: (questionId: string) =>
     set((state: Store) => ({
@@ -86,7 +100,6 @@ const useStore = create<Store>()((set) => ({
       ),
     })),
 
-  //TODO: re-check fuction done during lesson
   setIsChosen: (questionId: string, userAnswer: string) =>
     set((state: Store) => ({
       ...state,
@@ -110,18 +123,26 @@ const useStore = create<Store>()((set) => ({
           : question
       ),
     })),
+
+  setAreResultsShown: (bool: boolean) =>
+    set((state: Store) => ({
+      ...state,
+      areResultsShown: bool,
+    })),
 }));
 
 export default function Quiz() {
   const {
     questions,
     currentQuestionId,
+    areResultsShown,
     nextQuestion,
-    reset,
+    previousQuestion,
     setAnswerToCorrect,
     setAnswerToIncorrect,
     setUserAnswer,
     setIsChosen,
+    setAreResultsShown,
   } = useStore();
 
   //get First Question from array of objects
@@ -143,47 +164,54 @@ export default function Quiz() {
     }
   };
 
-  const isNextQuestionAvailable = () =>
-    Number(currentQuestionId) < questions.length;
+  const areAllQuestionsAnswered = () =>
+    questions.find((question) => question.userAnswer === null) === undefined &&
+    currentQuestionId === String(questions.length);
+
+  const isCurrentQuestionAnswered = () => {
+    const userCurrentQuestionAnswer =
+      getQuestion(currentQuestionId)?.userAnswer;
+    return userCurrentQuestionAnswer != null ?? undefined;
+    //// Using logical OR (||) for default value
+    // return userCurrentQuestionAnswer !== null && userCurrentQuestionAnswer !== undefined
+    // ? userCurrentQuestionAnswer
+    // : undefined;
+  };
+  console.log(isCurrentQuestionAnswered());
 
   const nextQuestionBtn = (
     <button
       onClick={nextQuestion}
-      className={`btn-next btn btn-primary
-                  ${isNextQuestionAvailable() ? "" : "disabled"}`}
+      className={`btn-next btn btn-primary ${
+        isCurrentQuestionAnswered() ? "" : "disabled"
+      }`}
     >
-      Nastepny
+      Nastepne
     </button>
   );
 
-  // const getIncorrectAnswersLevels = () => {
-  //   return questions
-  //     .filter((question) => !question.answeredCorrectly)
-  //     .map((question) => question.gramarLevel);
-  // };
-
-  const toggleHideResults = isNextQuestionAvailable() ? "d-none" : "d-block";
+  const resultsJSX = (
+    <div>
+      <p>We recommmend you study the following levels:</p>
+      {questions
+        .filter((question) => !question.answeredCorrectly)
+        .map((question) => (
+          <li key={question.id}>
+            <p>
+              <b>{question.gramarLevel}</b>
+            </p>
+          </li>
+        ))}
+    </div>
+  );
 
   const showResults = () => {
-    return (
-      <div className={toggleHideResults}>
-        <p>We recommmend you study the following levels:</p>
-        {questions
-          .filter((question) => !question.answeredCorrectly)
-          .map((question, index) => (
-            <li key={index}>
-              <p>
-                <b>{question.gramarLevel}</b>
-              </p>
-            </li>
-          ))}
-      </div>
-    );
+    setAreResultsShown(true);
   };
 
-  const resultsBtn = (
+  const submitResultsBtn = (
     <button onClick={showResults} className={`btn btn-success`}>
-      Results
+      Sprawdź
     </button>
   );
 
@@ -214,11 +242,14 @@ export default function Quiz() {
             ))}
             <div className="d-flex gap-2">
               <div>
-                {isNextQuestionAvailable() ? nextQuestionBtn : resultsBtn}
+                {areAllQuestionsAnswered() ? submitResultsBtn : nextQuestionBtn}
               </div>
               <div>
-                <button onClick={reset} className="btn-reset btn btn-dark">
-                  Reset
+                <button
+                  onClick={previousQuestion}
+                  className="btn-previousQuestion btn btn-dark"
+                >
+                  Poprzednie
                 </button>
               </div>
               <div>
@@ -229,8 +260,7 @@ export default function Quiz() {
                 : "False"}
               {getQuestion(currentQuestionId)?.userAnswer}
             </div>
-            {/* TODO: Render showResults list when onClick resultsBtn */}
-            {showResults()}
+            {areResultsShown && resultsJSX}
           </div>
         </section>
       </main>
