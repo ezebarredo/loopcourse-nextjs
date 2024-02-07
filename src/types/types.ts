@@ -35,7 +35,6 @@ export type Store = {
   questions: Questions;
   currentQuestionId: string;
   areResultsShown: boolean;
-  // isAnswerSelected: boolean;
   nextQuestion: () => void;
   previousQuestion: () => void;
   setAnswerToCorrect: (questionId: string) => void;
@@ -43,7 +42,6 @@ export type Store = {
   setUserAnswer: (questionId: string, userAnswer: string) => void;
   setIsChosen: (questionId: string, userAnswer: string) => void;
   setAreResultsShown: (bool: boolean) => void;
-  // setAnswerSelected: (bool: boolean) => void;
 };
 
 // LEVELS - Flashcards

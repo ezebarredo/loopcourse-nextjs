@@ -1,135 +1,15 @@
-import { create } from "zustand";
-import { Store } from "@/types/types";
+import { useStore } from "./store";
+import Utils from "./utils";
 
-// 1) TODO: user cannot click nextBtn before choosing an answer --> SOLVED
+// 1) User cannot click nextBtn before choosing an answer --> SOLVED
 
 // 2) user see results only after clicking submitBtn -> SOLVED
 
 // 3) Rename reset to previousQuestion or other. -> SOLVED
 
-// 4) JSX components into separate files.
+// 4) JSX components into separate files. -> PENDING
 
-// 5) Store into own file
-
-// DATA
-// Store ONLY store properties (data) and update functions (set).
-const useStore = create<Store>()((set) => ({
-  questions: [
-    {
-      id: "1",
-      title: "She ______ funny.",
-      answers: [
-        { id: "1", answer: "is", isChosen: false },
-        { id: "2", answer: "am", isChosen: false },
-        { id: "3", answer: "are", isChosen: false },
-      ],
-      correctAnswer: "is",
-      answeredCorrectly: false,
-      gramarLevel: "1.1 Subject Pronouns",
-      userAnswer: null,
-    },
-    {
-      id: "2",
-      title: "This is Paul and ______ wife.",
-      answers: [
-        { id: "1", answer: "his", isChosen: false },
-        { id: "2", answer: "my", isChosen: false },
-        { id: "3", answer: "her", isChosen: false },
-      ],
-      correctAnswer: "his",
-      answeredCorrectly: false,
-      gramarLevel: "1.2 Possessive Adjectives",
-      userAnswer: null,
-    },
-    {
-      id: "3",
-      title: "We ______ tired.",
-      answers: [
-        { id: "1", answer: "are not", isChosen: false },
-        { id: "2", answer: "be not", isChosen: false },
-        { id: "3", answer: "is not", isChosen: false },
-      ],
-      correctAnswer: "are not",
-      answeredCorrectly: false,
-      gramarLevel: "1.3 To be",
-      userAnswer: null,
-    },
-  ],
-
-  currentQuestionId: "1",
-  areResultsShown: false,
-
-  nextQuestion: () =>
-    set((state: Store) => ({
-      ...state,
-      currentQuestionId: String(Number(state.currentQuestionId) + 1),
-    })),
-
-  previousQuestion: () =>
-    set((state: Store) => ({
-      ...state,
-      currentQuestionId: String(Number(state.currentQuestionId) - 1),
-      areResultsShown: false,
-    })),
-
-  setAnswerToCorrect: (questionId: string) =>
-    set((state: Store) => ({
-      ...state,
-      questions: state.questions.map((question) =>
-        question.id === questionId
-          ? { ...question, answeredCorrectly: true }
-          : question
-      ),
-    })),
-
-  setAnswerToIncorrect: (questionId: string) =>
-    set((state: Store) => ({
-      ...state,
-      questions: state.questions.map((question) =>
-        question.id === questionId
-          ? { ...question, answeredCorrectly: false }
-          : question
-      ),
-    })),
-
-  setUserAnswer: (questionId: string, userAnswer: string) =>
-    set((state: Store) => ({
-      ...state,
-      questions: state.questions.map((question) =>
-        question.id === questionId ? { ...question, userAnswer } : question
-      ),
-    })),
-
-  setIsChosen: (questionId: string, userAnswer: string) =>
-    set((state: Store) => ({
-      ...state,
-      questions: state.questions.map((question) =>
-        question.id === questionId
-          ? {
-              ...question,
-              answers: question.answers.map(
-                (answer) => ({
-                  ...answer,
-                  isChosen: answer.answer === userAnswer,
-                })
-                // answer.answer === userAnswer
-                //   ? {
-                //       ...answer,
-                //       isChosen: true,
-                //     }
-                //   : { ...answer, isChosen: false }
-              ),
-            }
-          : question
-      ),
-    })),
-
-  setAreResultsShown: (bool: boolean) =>
-    set((state: Store) => ({
-      ...state,
-      areResultsShown: bool,
-    })),
-}));
+// 5) Store into own file --> store.tsx SOLVED
 
 export default function Quiz() {
   const {
@@ -145,75 +25,78 @@ export default function Quiz() {
     setAreResultsShown,
   } = useStore();
 
-  //get First Question from array of objects
-  const getQuestion = (questionId: string) =>
-    questions.find(({ id }) => id === questionId);
+  // //get First Question from array of objects
+  // const getQuestion = (questionId: string) =>
+  //   questions.find(({ id }) => id === questionId);
 
-  //TODO: add shuffle to answers btns
-  const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
+  // //TODO: add shuffle to answers btns
+  // const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
-  // AnswerClickUser
-  const answerClick = (event: { target: any }) => {
-    const userAnswer = event.target.innerHTML;
-    setIsChosen(currentQuestionId, userAnswer);
-    setUserAnswer(currentQuestionId, userAnswer);
-    if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
-      setAnswerToCorrect(currentQuestionId);
-    } else {
-      setAnswerToIncorrect(currentQuestionId);
-    }
-  };
+  // // AnswerClickUser
+  // const answerClick = (event: { target: any }) => {
+  //   const userAnswer = event.target.innerHTML;
+  //   setIsChosen(currentQuestionId, userAnswer);
+  //   setUserAnswer(currentQuestionId, userAnswer);
+  //   if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
+  //     setAnswerToCorrect(currentQuestionId);
+  //   } else {
+  //     setAnswerToIncorrect(currentQuestionId);
+  //   }
+  // };
 
-  const areAllQuestionsAnswered = () =>
-    questions.find((question) => question.userAnswer === null) === undefined &&
-    currentQuestionId === String(questions.length);
+  // const areAllQuestionsAnswered = () =>
+  //   questions.find((question) => question.userAnswer === null) === undefined &&
+  //   currentQuestionId === String(questions.length);
 
-  const isCurrentQuestionAnswered = () => {
-    const userCurrentQuestionAnswer =
-      getQuestion(currentQuestionId)?.userAnswer;
-    return userCurrentQuestionAnswer != null ?? undefined;
-    //// Using logical OR (||) for default value
-    // return userCurrentQuestionAnswer !== null && userCurrentQuestionAnswer !== undefined
-    // ? userCurrentQuestionAnswer
-    // : undefined;
-  };
-  console.log(isCurrentQuestionAnswered());
+  // // 1) User cannot click nextBtn before choosing an answer --> SOLVED
+  // const isCurrentQuestionAnswered = () => {
+  //   const userCurrentQuestionAnswer =
+  //     getQuestion(currentQuestionId)?.userAnswer;
+  //   return userCurrentQuestionAnswer != null ?? undefined;
+  //   //// Using logical OR (||) for default value
+  //   // return userCurrentQuestionAnswer !== null && userCurrentQuestionAnswer !== undefined
+  //   // ? userCurrentQuestionAnswer
+  //   // : undefined;
+  // };
 
-  const nextQuestionBtn = (
-    <button
-      onClick={nextQuestion}
-      className={`btn-next btn btn-primary ${
-        isCurrentQuestionAnswered() ? "" : "disabled"
-      }`}
-    >
-      Nastepne
-    </button>
-  );
+  // // JSX
+  // const nextQuestionBtn = (
+  //   <button
+  //     onClick={nextQuestion}
+  //     className={`btn-next btn btn-primary ${
+  //       isCurrentQuestionAnswered() ? "" : "disabled"
+  //     }`}
+  //   >
+  //     Nastepne
+  //   </button>
+  // );
 
-  const resultsJSX = (
-    <div>
-      <p>We recommmend you study the following levels:</p>
-      {questions
-        .filter((question) => !question.answeredCorrectly)
-        .map((question) => (
-          <li key={question.id}>
-            <p>
-              <b>{question.gramarLevel}</b>
-            </p>
-          </li>
-        ))}
-    </div>
-  );
+  // // JSX
+  // const resultsJSX = (
+  //   <div>
+  //     <p>We recommmend you study the following levels:</p>
+  //     {questions
+  //       .filter((question) => !question.answeredCorrectly)
+  //       .map((question) => (
+  //         <li key={question.id}>
+  //           <p>
+  //             <b>{question.gramarLevel}</b>
+  //           </p>
+  //         </li>
+  //       ))}
+  //   </div>
+  // );
 
-  const showResults = () => {
-    setAreResultsShown(true);
-  };
+  // const showResults = () => {
+  //   setAreResultsShown(true);
+  // };
 
-  const submitResultsBtn = (
-    <button onClick={showResults} className={`btn btn-success`}>
-      Sprawdź
-    </button>
-  );
+  // // JSX
+  // const submitResultsBtn = (
+  //   <button onClick={showResults} className={`btn btn-success fw-bold`}>
+  //     Sprawdź
+  //   </button>
+  // );
 
   return (
     <>
@@ -224,9 +107,9 @@ export default function Quiz() {
             <br />
             {currentQuestionId} / {questions.length}
             <div className="fs-3 fw-normal text-dark my-2">
-              {getQuestion(currentQuestionId)?.title}
+              {Utils.getQuestion(currentQuestionId)?.title}
             </div>
-            {getQuestion(currentQuestionId)?.answers.map((answer) => (
+            {Utils.getQuestion(currentQuestionId)?.answers.map((answer) => (
               <button
                 key={Number(answer.id)}
                 type="button"
@@ -235,19 +118,21 @@ export default function Quiz() {
                     ? "btn-success text-light"
                     : "btn-light text-dark"
                 }`}
-                onClick={answerClick}
+                onClick={Utils.answerClick}
               >
                 {answer.answer}
               </button>
             ))}
             <div className="d-flex gap-2">
               <div>
-                {areAllQuestionsAnswered() ? submitResultsBtn : nextQuestionBtn}
+                {Utils.areAllQuestionsAnswered()
+                  ? Utils.submitResultsBtn
+                  : Utils.nextQuestionBtn}
               </div>
               <div>
                 <button
                   onClick={previousQuestion}
-                  className="btn-previousQuestion btn btn-dark"
+                  className="btn-previousQuestion btn btn-primary"
                 >
                   Poprzednie
                 </button>
@@ -255,12 +140,12 @@ export default function Quiz() {
               <div>
                 <br />
               </div>
-              {getQuestion(currentQuestionId)?.answeredCorrectly
+              {Utils.getQuestion(currentQuestionId)?.answeredCorrectly
                 ? "True"
                 : "False"}
-              {getQuestion(currentQuestionId)?.userAnswer}
+              {Utils.getQuestion(currentQuestionId)?.userAnswer}
             </div>
-            {areResultsShown && resultsJSX}
+            {areResultsShown && Utils.resultsJSX}
           </div>
         </section>
       </main>
