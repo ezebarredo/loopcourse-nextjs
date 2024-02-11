@@ -1,15 +1,22 @@
-import { useStore } from "./store";
-import Utils from "./utils";
+import { useStore } from "./store/store";
+import {
+  getQuestion,
+  isCurrentQuestionAnswered,
+  areAllQuestionsAnswered,
+} from "./utils/utils";
+import NextQuestionBtn from "./components/NextQuestionBtn";
+import ResultsJSX from "./components/Results";
+import SubmitResultsBtn from "./components/SubmitResultsBtn";
 
-// 1) User cannot click nextBtn before choosing an answer --> SOLVED
+// .tsx it's ALWAYS for components ONLY.
 
-// 2) user see results only after clicking submitBtn -> SOLVED
+// Pure functions:
+// 1) for the same input we have same output
+// 2) No side effects. No taking and no changing outside of scope.
 
-// 3) Rename reset to previousQuestion or other. -> SOLVED
+// JSX components into separate files. -> PENDING
 
-// 4) JSX components into separate files. -> PENDING
-
-// 5) Store into own file --> store.tsx SOLVED
+// 1) Previous question shouldn't work when question === 1
 
 export default function Quiz() {
   const {
@@ -25,78 +32,26 @@ export default function Quiz() {
     setAreResultsShown,
   } = useStore();
 
-  // //get First Question from array of objects
-  // const getQuestion = (questionId: string) =>
-  //   questions.find(({ id }) => id === questionId);
+  //TODO: add shuffle to answers btns
+  const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
 
-  // //TODO: add shuffle to answers btns
-  // const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
+  // AnswerClickUser
+  const answerClick = (event: { target: any }) => {
+    const userAnswer = event.target.innerHTML;
+    setIsChosen(currentQuestionId, userAnswer);
+    setUserAnswer(currentQuestionId, userAnswer);
+    if (
+      getQuestion(questions, currentQuestionId)?.correctAnswer === userAnswer
+    ) {
+      setAnswerToCorrect(currentQuestionId);
+    } else {
+      setAnswerToIncorrect(currentQuestionId);
+    }
+  };
 
-  // // AnswerClickUser
-  // const answerClick = (event: { target: any }) => {
-  //   const userAnswer = event.target.innerHTML;
-  //   setIsChosen(currentQuestionId, userAnswer);
-  //   setUserAnswer(currentQuestionId, userAnswer);
-  //   if (getQuestion(currentQuestionId)?.correctAnswer === userAnswer) {
-  //     setAnswerToCorrect(currentQuestionId);
-  //   } else {
-  //     setAnswerToIncorrect(currentQuestionId);
-  //   }
-  // };
-
-  // const areAllQuestionsAnswered = () =>
-  //   questions.find((question) => question.userAnswer === null) === undefined &&
-  //   currentQuestionId === String(questions.length);
-
-  // // 1) User cannot click nextBtn before choosing an answer --> SOLVED
-  // const isCurrentQuestionAnswered = () => {
-  //   const userCurrentQuestionAnswer =
-  //     getQuestion(currentQuestionId)?.userAnswer;
-  //   return userCurrentQuestionAnswer != null ?? undefined;
-  //   //// Using logical OR (||) for default value
-  //   // return userCurrentQuestionAnswer !== null && userCurrentQuestionAnswer !== undefined
-  //   // ? userCurrentQuestionAnswer
-  //   // : undefined;
-  // };
-
-  // // JSX
-  // const nextQuestionBtn = (
-  //   <button
-  //     onClick={nextQuestion}
-  //     className={`btn-next btn btn-primary ${
-  //       isCurrentQuestionAnswered() ? "" : "disabled"
-  //     }`}
-  //   >
-  //     Nastepne
-  //   </button>
-  // );
-
-  // // JSX
-  // const resultsJSX = (
-  //   <div>
-  //     <p>We recommmend you study the following levels:</p>
-  //     {questions
-  //       .filter((question) => !question.answeredCorrectly)
-  //       .map((question) => (
-  //         <li key={question.id}>
-  //           <p>
-  //             <b>{question.gramarLevel}</b>
-  //           </p>
-  //         </li>
-  //       ))}
-  //   </div>
-  // );
-
-  // const showResults = () => {
-  //   setAreResultsShown(true);
-  // };
-
-  // // JSX
-  // const submitResultsBtn = (
-  //   <button onClick={showResults} className={`btn btn-success fw-bold`}>
-  //     Sprawdź
-  //   </button>
-  // );
+  const showResults = () => {
+    setAreResultsShown(true);
+  };
 
   return (
     <>
@@ -107,27 +62,28 @@ export default function Quiz() {
             <br />
             {currentQuestionId} / {questions.length}
             <div className="fs-3 fw-normal text-dark my-2">
-              {Utils.getQuestion(currentQuestionId)?.title}
+              {getQuestion(questions, currentQuestionId)?.title}
             </div>
-            {Utils.getQuestion(currentQuestionId)?.answers.map((answer) => (
-              <button
-                key={Number(answer.id)}
-                type="button"
-                className={`btn btnAnswer fs-4  my-3 me-3 mb-5 ${
-                  answer.isChosen
-                    ? "btn-success text-light"
-                    : "btn-light text-dark"
-                }`}
-                onClick={Utils.answerClick}
-              >
-                {answer.answer}
-              </button>
-            ))}
+            {/* make component Answers.tsx */}
+            {getQuestion(questions, currentQuestionId)?.answers.map(
+              (answer) => (
+                <button
+                  key={Number(answer.id)}
+                  type="button"
+                  className={`btn btnAnswer fs-4  my-3 me-3 mb-5 ${
+                    answer.isChosen
+                      ? "btn-success text-light"
+                      : "btn-light text-dark"
+                  }`}
+                  onClick={answerClick}
+                >
+                  {answer.answer}
+                </button>
+              )
+            )}
             <div className="d-flex gap-2">
               <div>
-                {Utils.areAllQuestionsAnswered()
-                  ? Utils.submitResultsBtn
-                  : Utils.nextQuestionBtn}
+                {areAllQuestionsAnswered() ? SubmitResultsBtn : NextQuestionBtn}
               </div>
               <div>
                 <button
@@ -140,12 +96,12 @@ export default function Quiz() {
               <div>
                 <br />
               </div>
-              {Utils.getQuestion(currentQuestionId)?.answeredCorrectly
+              {getQuestion(questions, currentQuestionId)?.answeredCorrectly
                 ? "True"
                 : "False"}
-              {Utils.getQuestion(currentQuestionId)?.userAnswer}
+              {getQuestion(questions, currentQuestionId)?.userAnswer}
             </div>
-            {areResultsShown && Utils.resultsJSX}
+            {areResultsShown && ResultsJSX}
           </div>
         </section>
       </main>
