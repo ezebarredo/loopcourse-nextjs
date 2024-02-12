@@ -7,14 +7,13 @@ import {
 import NextQuestionBtn from "./components/NextQuestionBtn";
 import ResultsJSX from "./components/Results";
 import SubmitResultsBtn from "./components/SubmitResultsBtn";
+import Answers from "./components/Answers";
 
 // .tsx it's ALWAYS for components ONLY.
 
 // Pure functions:
 // 1) for the same input we have same output
 // 2) No side effects. No taking and no changing outside of scope.
-
-// JSX components into separate files. -> PENDING
 
 // 1) Previous question shouldn't work when question === 1
 
@@ -64,31 +63,22 @@ export default function Quiz() {
             <div className="fs-3 fw-normal text-dark my-2">
               {getQuestion(questions, currentQuestionId)?.title}
             </div>
-            {/* make component Answers.tsx */}
-            {getQuestion(questions, currentQuestionId)?.answers.map(
-              (answer) => (
-                <button
-                  key={Number(answer.id)}
-                  type="button"
-                  className={`btn btnAnswer fs-4  my-3 me-3 mb-5 ${
-                    answer.isChosen
-                      ? "btn-success text-light"
-                      : "btn-light text-dark"
-                  }`}
-                  onClick={answerClick}
-                >
-                  {answer.answer}
-                </button>
-              )
-            )}
+            {/* {/* make component Answers.tsx */}
+            <Answers />
             <div className="d-flex gap-2">
               <div>
-                {areAllQuestionsAnswered() ? SubmitResultsBtn : NextQuestionBtn}
+                {areAllQuestionsAnswered(questions, currentQuestionId) ? (
+                  <SubmitResultsBtn />
+                ) : (
+                  <NextQuestionBtn />
+                )}
               </div>
               <div>
+                {/* question[currentQuestionId] != "1" ? "" : disabled */}
                 <button
                   onClick={previousQuestion}
-                  className="btn-previousQuestion btn btn-primary"
+                  className={`btn-previousQuestion btn btn-primary`}
+                  // ${questions[currentQuestionId] != "1" ? "" : "disabled"}`}
                 >
                   Poprzednie
                 </button>
@@ -101,7 +91,7 @@ export default function Quiz() {
                 : "False"}
               {getQuestion(questions, currentQuestionId)?.userAnswer}
             </div>
-            {areResultsShown && ResultsJSX}
+            {areResultsShown && <ResultsJSX />}
           </div>
         </section>
       </main>
