@@ -4,6 +4,7 @@ import { Questions } from "@/types/types";
 const getQuestion = (questions: Questions, questionId: string) =>
   questions.find((question) => question.id === questionId);
 
+// User select answer
 const isCurrentQuestionAnswered = (
   questions: Questions,
   questionId: string

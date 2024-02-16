@@ -1,9 +1,5 @@
 import { useStore } from "./store/store";
-import {
-  getQuestion,
-  isCurrentQuestionAnswered,
-  areAllQuestionsAnswered,
-} from "./utils/utils";
+import { getQuestion, areAllQuestionsAnswered } from "./utils/utils";
 import NextQuestionBtn from "./components/NextQuestionBtn";
 import ResultsJSX from "./components/Results";
 import SubmitResultsBtn from "./components/SubmitResultsBtn";
@@ -12,7 +8,7 @@ import Answers from "./components/Answers";
 // .tsx it's ALWAYS for components ONLY.
 
 // Pure functions:
-// 1) for the same input we have same output
+// 1) For the same input we have same output
 // 2) No side effects. No taking and no changing outside of scope.
 
 // 1) Previous question shouldn't work when question === 1
@@ -63,7 +59,6 @@ export default function Quiz() {
             <div className="fs-3 fw-normal text-dark my-2">
               {getQuestion(questions, currentQuestionId)?.title}
             </div>
-            {/* {/* make component Answers.tsx */}
             <Answers />
             <div className="d-flex gap-2">
               <div>
@@ -77,8 +72,8 @@ export default function Quiz() {
                 {/* question[currentQuestionId] != "1" ? "" : disabled */}
                 <button
                   onClick={previousQuestion}
-                  className={`btn-previousQuestion btn btn-primary`}
-                  // ${questions[currentQuestionId] != "1" ? "" : "disabled"}`}
+                  className={`btn-previousQuestion btn btn-primary
+                  ${currentQuestionId != "1" ? "" : "disabled"}`}
                 >
                   Poprzednie
                 </button>
