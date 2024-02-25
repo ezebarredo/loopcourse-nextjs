@@ -114,7 +114,8 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                 <a>
                   <div className={`${styles.flashtype} bg-light`}>
                     <div className="img-cover">
-                      <img
+                      <Image
+                        alt="image"
                         className={`${styles.flashimage} rounded`}
                         src={
                           currentCards
