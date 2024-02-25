@@ -1,10 +1,36 @@
+import { Answer } from "@/types/types";
 import { useStore } from "../store/store";
 import { getQuestion } from "../utils/utils";
-import answerClick from "../quiz";
+import _shuffle from "lodash.shuffle";
 
 const Answers = () => {
-  const { questions, currentQuestionId } = useStore();
-  return getQuestion(questions, currentQuestionId)?.answers.map((answer) => (
+  const {
+    questions,
+    currentQuestionId,
+    setIsChosen,
+    setUserAnswer,
+    setAnswerToCorrect,
+    setAnswerToIncorrect,
+  } = useStore();
+
+  const answerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const button: HTMLButtonElement = event.currentTarget;
+    const userAnswer = button.innerHTML;
+    setIsChosen(currentQuestionId, userAnswer);
+    setUserAnswer(currentQuestionId, userAnswer);
+    if (
+      getQuestion(questions, currentQuestionId)?.correctAnswer === userAnswer
+    ) {
+      setAnswerToCorrect(currentQuestionId);
+    } else {
+      setAnswerToIncorrect(currentQuestionId);
+    }
+  };
+
+  const question = getQuestion(questions, currentQuestionId);
+  const shuffledAnswers = _shuffle(question?.answers);
+
+  return shuffledAnswers.map((answer: Answer) => (
     <button
       key={Number(answer.id)}
       type="button"

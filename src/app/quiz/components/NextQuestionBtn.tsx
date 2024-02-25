@@ -6,11 +6,13 @@ const NextQuestionBtn = () => {
   return (
     <button
       onClick={nextQuestion}
-      className={`btn-next btn btn-primary ${
-        isCurrentQuestionAnswered(questions, currentQuestionId)
-          ? ""
-          : "disabled"
-      }`}
+      className={`btn-next btn btn-primary
+       ${
+         isCurrentQuestionAnswered(questions, currentQuestionId)
+           ? ""
+           : "disabled"
+       }
+       `}
     >
       Nastepne
     </button>

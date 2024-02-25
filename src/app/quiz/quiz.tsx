@@ -11,14 +11,11 @@ import Answers from "./components/Answers";
 // 1) For the same input we have same output
 // 2) No side effects. No taking and no changing outside of scope.
 
-// 1) Previous question shouldn't work when question === 1
-
 export default function Quiz() {
   const {
     questions,
     currentQuestionId,
     areResultsShown,
-    nextQuestion,
     previousQuestion,
     setAnswerToCorrect,
     setAnswerToIncorrect,
@@ -29,24 +26,6 @@ export default function Quiz() {
 
   //TODO: add shuffle to answers btns
   const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
-
-  // AnswerClickUser
-  const answerClick = (event: { target: any }) => {
-    const userAnswer = event.target.innerHTML;
-    setIsChosen(currentQuestionId, userAnswer);
-    setUserAnswer(currentQuestionId, userAnswer);
-    if (
-      getQuestion(questions, currentQuestionId)?.correctAnswer === userAnswer
-    ) {
-      setAnswerToCorrect(currentQuestionId);
-    } else {
-      setAnswerToIncorrect(currentQuestionId);
-    }
-  };
-
-  const showResults = () => {
-    setAreResultsShown(true);
-  };
 
   return (
     <>
@@ -69,7 +48,6 @@ export default function Quiz() {
                 )}
               </div>
               <div>
-                {/* question[currentQuestionId] != "1" ? "" : disabled */}
                 <button
                   onClick={previousQuestion}
                   className={`btn-previousQuestion btn btn-primary
