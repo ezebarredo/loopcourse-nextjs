@@ -213,10 +213,14 @@ FONT SIZE SYSTEM (px) 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 /
   /* When image exist: */
   .flashimage {
     width: 100%;
-    max-width: 15rem;
+    max-width: 20rem;
     height: auto;
     margin-bottom: 5px;
   }
+}
+
+.displayImageNone {
+  display: none;
 }
 
 /*  Mobile M */

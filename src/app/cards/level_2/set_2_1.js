@@ -3,7 +3,7 @@ export const cards2_1 = [
     id: "1",
     front: "Która jest godzina?",
     back: "What time is it?",
-    image: "img/levels/level_2/set_2_1/whattime.jpg",
+    image: "/img/levels/level_2/set_2_1/whattime.jpg",
   },
   {
     id: "2",
