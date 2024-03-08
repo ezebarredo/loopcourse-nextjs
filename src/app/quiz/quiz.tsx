@@ -1,15 +1,18 @@
+"use client";
 import { useStore } from "./store/store";
 import { getQuestion, areAllQuestionsAnswered } from "./utils/utils";
 import NextQuestionBtn from "./components/NextQuestionBtn";
 import ResultsJSX from "./components/Results";
 import SubmitResultsBtn from "./components/SubmitResultsBtn";
-import Answers from "./components/Answers";
+import dynamic from "next/dynamic";
 
 // .tsx it's ALWAYS for components ONLY.
 
 // Pure functions:
 // 1) For the same input we have same output
 // 2) No side effects. No taking and no changing outside of scope.
+
+const Answers = dynamic(() => import("./components/Answers"), { ssr: false });
 
 export default function Quiz() {
   const {

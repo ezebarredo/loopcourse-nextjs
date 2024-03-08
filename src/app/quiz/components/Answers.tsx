@@ -1,7 +1,7 @@
+"use client";
 import { Answer } from "@/types/types";
 import { useStore } from "../store/store";
 import { getQuestion } from "../utils/utils";
-import _shuffle from "lodash.shuffle";
 
 const Answers = () => {
   const {
@@ -27,21 +27,40 @@ const Answers = () => {
     }
   };
 
-  const question = getQuestion(questions, currentQuestionId);
-  const shuffledAnswers = _shuffle(question?.answers);
+  // TODO: useEffect how to use it ask next lesson
 
-  return shuffledAnswers.map((answer: Answer) => (
-    <button
-      key={Number(answer.id)}
-      type="button"
-      className={`btn btnAnswer fs-4  my-3 me-3 mb-5 ${
-        answer.isChosen ? "btn-success text-light" : "btn-light text-dark"
-      }`}
-      onClick={answerClick}
-    >
-      {answer.answer}
-    </button>
-  ));
+  // 2nd argument [] (array) will stop the infinit loop
+  // useEffect(() => {
+  //   const question = getQuestion(questions, currentQuestionId);
+  //   if (question?.answers) {
+  //     setShuffledAnswers(question?.answers);
+  //   }
+  // }, [questions]);
+
+  // console.log(setShuffledAnswers(currentQuestionId));
+
+  // Only return 1 element from a component
+
+  // setShuffledAnswers(currentQuestionId);
+
+  return (
+    <>
+      {getQuestion(questions, currentQuestionId)?.answers.map(
+        (answer: Answer) => (
+          <button
+            key={Number(answer.id)}
+            type="button"
+            className={`btn btnAnswer fs-4  my-3 me-3 mb-5 
+          ${answer.isChosen ? "btn-success text-light" : "btn-light text-dark"}
+          `}
+            onClick={answerClick}
+          >
+            {answer.answer}
+          </button>
+        )
+      )}
+    </>
+  );
 };
 
 export default Answers;

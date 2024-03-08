@@ -3,10 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
-// import { Levels } from "../../../types/types";
 import LevelsData from "../../cards/main";
 import Navigation from "@/app/nav/nav";
-// import NavLevels from "@/app/nav/nav_levels";
 
 // Returns the value of the first element in the array
 export default function GetLevel({ params }: { params: { id: string } }) {
