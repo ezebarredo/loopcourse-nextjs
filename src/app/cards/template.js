@@ -16,7 +16,7 @@ const myCards = [
   },
   {
     front: "",
-    back: ""
+    back: "",
   },
   {
     front: "",

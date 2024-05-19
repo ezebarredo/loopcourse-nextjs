@@ -27,9 +27,6 @@ export default function Quiz() {
     setAreResultsShown,
   } = useStore();
 
-  //TODO: add shuffle to answers btns
-  const shuffle = (array: string[]) => array.sort(() => Math.random() - 0.5);
-
   return (
     <>
       <main className="flex-shrink-0">
@@ -62,10 +59,10 @@ export default function Quiz() {
               <div>
                 <br />
               </div>
-              {getQuestion(questions, currentQuestionId)?.answeredCorrectly
+              {/* {getQuestion(questions, currentQuestionId)?.answeredCorrectly
                 ? "True"
-                : "False"}
-              {getQuestion(questions, currentQuestionId)?.userAnswer}
+                : "False"} */}
+              {/* {getQuestion(questions, currentQuestionId)?.userAnswer} */}
             </div>
             {areResultsShown && <ResultsJSX />}
           </div>

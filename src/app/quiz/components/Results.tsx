@@ -5,14 +5,15 @@ const ResultsJSX = () => {
   const { questions } = useStore();
   return (
     <div>
-      <p>We recommmend you study the following levels:</p>
+      <br />
+      <p>
+        <b>We recommmend you study the following levels:</b>
+      </p>
       {questions
         .filter((question) => !question.answeredCorrectly)
         .map((question) => (
-          <li key={question.id}>
-            <p>
-              <b>{question.gramarLevel}</b>
-            </p>
+          <li key={question.id} style={{ listStyleType: "none" }}>
+            <p>{question.gramarLevel}</p>
           </li>
         ))}
     </div>

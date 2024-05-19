@@ -1,9 +1,13 @@
-import Quiz from "./quiz/quiz";
+"use client";
 
-export default function Home() {
+import Home from "./home/home";
+import Navigation from "./nav/nav";
+
+export default async function Page() {
   return (
     <>
-      <h2>Home Page</h2>
+      <Navigation />
+      <Home />
     </>
   );
 }

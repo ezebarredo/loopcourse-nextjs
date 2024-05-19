@@ -12,16 +12,18 @@ export default function Navigation() {
   const topLevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" data-bs-theme="light" expand="lg" fixed="top">
         <Container>
-          <Navbar.Brand href="#home">Loop Course</Navbar.Brand>
+          <Navbar.Brand href="#home" className="fw-bold text-primary">
+            Loop Course
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
               <Button variant="primary">Twoje Konto</Button>
               <NavDropdownMenu title="Otworz kurs" id="basic-nav-dropdown">
-                {/* Top level + levels  */}
+                {/* Top level + sublevels  */}
                 {topLevels.map((topLevel) => {
                   const filteredLevels = Levels.filter(
                     (level) => level.topLevel === topLevel

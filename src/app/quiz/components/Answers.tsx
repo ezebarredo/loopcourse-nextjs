@@ -37,11 +37,7 @@ const Answers = () => {
   //   }
   // }, [questions]);
 
-  // console.log(setShuffledAnswers(currentQuestionId));
-
   // Only return 1 element from a component
-
-  // setShuffledAnswers(currentQuestionId);
 
   return (
     <>
