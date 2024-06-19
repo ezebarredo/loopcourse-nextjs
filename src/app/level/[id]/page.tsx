@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import styles from "../../page.module.css";
-import LevelsData from "../../cards/main";
+import Image from "next/image";
 import Navigation from "@/app/nav/nav";
+import LevelsData from "../../cards/main";
 
 // Returns the value of the first element in the array
+//https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
 export default function GetLevel({ params }: { params: { id: string } }) {
   const currentLevel = LevelsData.find((level) => level.id === params.id);
   const currentCards = currentLevel?.cards;
-
   // STATES
   const [count, setCount] = useState(1);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
@@ -104,7 +104,7 @@ export default function GetLevel({ params }: { params: { id: string } }) {
               </div>
             </div>
           </div>
-          {/*  NEW container Flashcard  */}
+          {/*  Flashcard container  */}
           <div className={`container ${styles.flashcards}`}>
             <div className="row justify-content-center">
               <div className="col-xl-6">
@@ -113,6 +113,7 @@ export default function GetLevel({ params }: { params: { id: string } }) {
                     <div className="img-cover">
                       {currentCards && currentCards[currentFlashcard].image && (
                         <Image
+                          priority={true}
                           className={`rounded`}
                           src={currentCards[currentFlashcard].image}
                           alt="image"

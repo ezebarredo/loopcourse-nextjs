@@ -14,7 +14,7 @@ export default function Navigation() {
     <>
       <Navbar bg="light" data-bs-theme="light" expand="lg" fixed="top">
         <Container>
-          <Navbar.Brand href="#home" className="fw-bold text-primary">
+          <Navbar.Brand href="/" className="fw-bold text-primary">
             Loop Course
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
