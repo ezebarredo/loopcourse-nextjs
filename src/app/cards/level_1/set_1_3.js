@@ -216,7 +216,7 @@ export const level1_3 = [
     id: "1.3",
     topLevel: "1",
     title: "To be",
-    audio: "/audio/1_1_audio_loopcourse.mp3",
+    audio: "/audio/1_3_audio_loopcourse.mp3",
     cards: cards1_3,
   },
 ];

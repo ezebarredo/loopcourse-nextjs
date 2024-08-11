@@ -1,164 +1,196 @@
-const myCardsTitle = [
+export const cards1_6 = [
   {
-    levelNumber: "1.6",
-    title: "Present Simple statements",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "Ja mieszkam w Londynie.",
     back: "I live in London.",
+    image: "",
   },
-
   {
+    id: "2",
     front: "Ty mieszkasz w Londynie.",
     back: "You live in London.",
+    image: "",
   },
-
   {
+    id: "3",
     front: "On mieszka w Londynie.",
     back: "He lives in London.",
+    image: "",
   },
-
   {
+    id: "4",
     front: "Ona mieszka w Londynie.",
     back: "She lives in London.",
+    image: "",
   },
-
   {
+    id: "5",
     front: "Ono mieszka w Londynie.",
     back: "It lives in London.",
+    image: "",
   },
-
   {
+    id: "6",
     front: "My mieszkamy w Paryżu.",
     back: "We live in Paris.",
+    image: "",
   },
-
   {
+    id: "7",
     front: "Wy mieszkacie w Paryżu.",
     back: "You live in Paris",
+    image: "",
   },
-
   {
+    id: "8",
     front: "Oni mieszkają w Paryżu.",
     back: "They live in Paris.",
+    image: "",
   },
-
   {
+    id: "9",
     front: "Ja biorę prysznic.",
     back: "I take a shower.",
     flashImage: "img/levels/level_1/set_1_6/shower.jpg",
+    image: "",
   },
-
   {
+    id: "10",
     front: "Ty bierzesz prysznic.",
     back: "You take a shower.",
+    image: "",
   },
-
   {
+    id: "11",
     front: "On bierze prysznic.",
     back: "He takes a shower.",
+    image: "",
   },
-
   {
+    id: "12",
     front: "Ona bierze prysznic.",
     back: "She takes a shower.",
+    image: "",
   },
-
   {
+    id: "13",
     front: "Ono bierze prysznic.",
     back: "It takes a shower.",
+    image: "",
   },
-
   {
+    id: "14",
     front: "My bierzemy prysznic.",
     back: "We take a shower.",
+    image: "",
   },
-
   {
+    id: "15",
     front: "Wy bierzecie prysznic.",
     back: "You take a shower.",
+    image: "",
   },
-
   {
+    id: "16",
     front: "Oni biorą prysznic.",
     back: "They take a shower.",
+    image: "",
   },
-
   {
+    id: "17",
     front: "Ja chodzę do pracy.",
     back: "I go to work.",
     flashImage: "img/levels/level_1/set_1_6/work.jpg",
+    image: "",
   },
-
   {
+    id: "18",
     front: "Ty chodzisz do pracy.",
     back: "You go to work.",
+    image: "",
   },
-
   {
+    id: "19",
     front: "Ona chodzi do pracy.",
     back: "She goes to work.",
+    image: "",
   },
-
   {
+    id: "20",
     front: "On chodzi do pracy.",
     back: "He goes to work.",
+    image: "",
   },
-
   {
+    id: "21",
     front: "Ono chodzi spać.",
     back: "It goes to sleep.",
     flashImage: "img/levels/level_1/set_1_6/sleep.jpg",
+    image: "",
   },
-
   {
+    id: "22",
     front: "My chodzimy do szkoły.",
     back: "We go to school.",
+    image: "",
   },
-
   {
+    id: "23",
     front: "Wy chodzicie do szkoły.",
     back: "You go to school.",
+    image: "",
   },
-
   {
+    id: "24",
     front: "Oni chodzą do szkoły.",
     back: "They go to school.",
+    image: "",
   },
-
   {
+    id: "25",
     front: "Ja robię zakupy.",
     back: "I do the shopping.",
+    image: "",
   },
-
   {
+    id: "26",
     front: "Ty robisz zakupy.",
     back: "You do the shopping.",
+    image: "",
   },
-
   {
+    id: "27",
     front: "Ona robi zakupy.",
     back: "She does the shopping.",
     flashImage: "img/levels/level_1/set_1_6/she_shopping.jpg",
+    image: "",
   },
-
   {
+    id: "28",
     front: "On robi zakupy.",
     back: "He does the shopping.",
+    image: "",
   },
-
   {
+    id: "29",
     front: "Ja przychodzę do domu.",
     back: "I come home.",
+    image: "",
   },
-
   {
+    id: "30",
     front: "Ona przychodzi do domu.",
     back: "She comes home.",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_6 = [
+  {
+    id: "1.6",
+    topLevel: "1",
+    title: "Present Simple statements",
+    audio: "/audio/1_6_audio_loopcourse.mp3",
+    cards: cards1_6,
+  },
+];

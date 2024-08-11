@@ -1,162 +1,194 @@
-const myCardsTitle = [
+export const cards1_7 = [
   {
-    levelNumber: "1.7",
-    title: "Present simple questions & negatives",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "Czy ja chodzę do pracy?",
     back: "Do I go to work?",
+    image: "",
   },
-
   {
+    id: "2",
     front: "Czy ty chodzisz do pracy?",
     back: "Do you go to work?",
+    image: "",
   },
-
   {
+    id: "3",
     front: "Czy on chodzi do pracy?",
     back: "Does he go to work?",
+    image: "",
   },
-
   {
+    id: "4",
     front: "Czy ona chodzi do pracy?",
     back: "Does she go to work?",
+    image: "",
   },
-
   {
+    id: "5",
     front: "Czy ono chodzi spać?\nCzy to chodzi spać?",
     back: "Does it go to sleep?",
+    image: "",
   },
-
   {
+    id: "6",
     front: "Czy my chodzimy do szkoły?",
     back: "Do we go to school?",
+    image: "",
   },
-
   {
+    id: "7",
     front: "Czy wy chodzicie do szkoły?",
     back: "Do you go to school?",
+    image: "",
   },
-
   {
+    id: "8",
     front: "Czy oni chodzą do szkoły?",
     back: "Do they go to school?",
+    image: "",
   },
-
   {
+    id: "9",
     front: "Czy ja robię zakupy?",
     back: "Do I do the shopping?",
+    image: "",
   },
-
   {
+    id: "10",
     front: "Czy ty robisz zakupy?",
     back: "Do you do the shopping?",
+    image: "",
   },
-
   {
+    id: "11",
     front: "Czy ona robi zakupy?",
     back: "Does she do the shopping?",
     flashImage: "img/levels/level_1/set_1_7/she_shopping_.jpg",
+    image: "",
   },
-
   {
+    id: "12",
     front: "Czy on robi zakupy?",
     back: "Does he do the shopping?",
+    image: "",
   },
-
   {
+    id: "13",
     front: "Czy ono robi zakupy?\nCzy to robi zakupy?",
     back: "Does it do the shopping?",
+    image: "",
   },
-
   {
+    id: "14",
     front: "Czy my robimy zakupy?",
     back: "Do we do the shopping?",
+    image: "",
   },
-
   {
+    id: "15",
     front: "Czy wy robicie zakupy?",
     back: "Do you do the shopping?",
+    image: "",
   },
-
   {
+    id: "16",
     front: "Czy oni robią zakupy?",
     back: "Do they do the shopping?",
+    image: "",
   },
-
   {
+    id: "17",
     front: "Ja nie pracuję.",
     back: "I don't work.",
+    image: "",
   },
-
   {
+    id: "18",
     front: "Ty nie pracujesz.",
     back: "You don't work.",
+    image: "",
   },
-
   {
+    id: "19",
     front: "On nie pracuje.",
     back: "He doesn't work.",
     flashImage: "img/levels/level_1/set_1_7/no_work.jpg",
+    image: "",
   },
-
   {
+    id: "20",
     front: "Ona nie pracuje.",
     back: "She doesn't work.",
+    image: "",
   },
-
   {
+    id: "21",
     front: "Ono nie pracuje.\nTo nie działa.",
     back: "It doesn't work.",
+    image: "",
   },
-
   {
+    id: "22",
     front: "My nie pracujemy.",
     back: "We don't work.",
+    image: "",
   },
-
   {
+    id: "23",
     front: "Wy nie pracujecie.",
     back: "You don't work.",
+    image: "",
   },
-
   {
+    id: "24",
     front: "Oni nie pracują.",
     back: "They don't work.",
+    image: "",
   },
-
   {
+    id: "25",
     front: "My nie chodzimy do szkoły.",
     back: "We don't go to school.",
+    image: "",
   },
-
   {
+    id: "26",
     front: "Ona nie chodzi do szkoły.",
     back: "She doesn't go to school.",
+    image: "",
   },
-
   {
+    id: "27",
     front: "Ja nie mieszkam w Paryżu.",
     back: "I don't live in Paris.",
+    image: "",
   },
-
   {
+    id: "28",
     front: "Ona nie mieszka w Paryżu.",
     back: "She doesn't live in Paris.",
+    image: "",
   },
-
   {
+    id: "29",
     front: "My nie chcemy jeść.",
     back: "We don't want to eat.",
+    image: "",
   },
-
   {
+    id: "30",
     front: "On nie chce jeść.",
     back: "He doesn't want to eat.",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_7 = [
+  {
+    id: "1.7",
+    topLevel: "1",
+    title: "Present simple questions & negatives",
+    audio: "/audio/1_7_audio_loopcourse.mp3",
+    cards: cards1_7,
+  },
+];

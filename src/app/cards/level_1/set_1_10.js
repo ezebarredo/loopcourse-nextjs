@@ -1,160 +1,192 @@
-const myCardsTitle = [
+export const cards1_10 = [
   {
-    levelNumber: "1.10",
-    title: "Cardinal Numbers",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "jeden 1",
     back: "one 1",
+    image: "",
   },
-
   {
+    id: "2",
     front: "dwa 2",
     back: "two 2",
+    image: "",
   },
-
   {
+    id: "3",
     front: "trzy 3",
     back: "three 3",
+    image: "",
   },
-
   {
+    id: "4",
     front: "cztery 4",
     back: "four 4",
+    image: "",
   },
-
   {
+    id: "5",
     front: "pięć 5",
     back: "five 5",
+    image: "",
   },
-
   {
+    id: "6",
     front: "sześć 6",
     back: "six 6",
+    image: "",
   },
-
   {
+    id: "7",
     front: "siedem 7",
     back: "seven 7",
+    image: "",
   },
-
   {
+    id: "8",
     front: "osiem 8",
     back: "eight 8",
+    image: "",
   },
-
   {
+    id: "9",
     front: "dziewięć 9",
     back: "nine 9",
+    image: "",
   },
-
   {
+    id: "10",
     front: "dziesięć 10",
     back: "ten 10",
+    image: "",
   },
-
   {
+    id: "11",
     front: "jedenaście 11",
     back: "eleven 11",
+    image: "",
   },
-
   {
+    id: "12",
     front: "dwanaście 12",
     back: "twelve 12",
+    image: "",
   },
-
   {
+    id: "13",
     front: "trzynaście 13",
     back: "thirteen 13",
+    image: "",
   },
-
   {
+    id: "14",
     front: "czternaście 14",
     back: "fourteen 14",
+    image: "",
   },
-
   {
+    id: "15",
     front: "piętnaście 15",
     back: "fifteen 15",
+    image: "",
   },
-
   {
+    id: "16",
     front: "szesnaście 16",
     back: "sixteen 16",
+    image: "",
   },
-
   {
+    id: "17",
     front: "siedemnaście 17",
     back: "seventeen 17",
+    image: "",
   },
-
   {
+    id: "18",
     front: "osiemnaście 18",
     back: "eighteen 18",
+    image: "",
   },
-
   {
+    id: "19",
     front: "dziewiętnaście 19",
     back: "nineteen 19",
+    image: "",
   },
-
   {
+    id: "20",
     front: "dwadzieścia 20",
     back: "twenty 20",
+    image: "",
   },
-
   {
+    id: "21",
     front: "dwadzieścia jeden 21",
     back: "twenty-one 21",
+    image: "",
   },
-
   {
+    id: "22",
     front: "trzydzieści 30",
     back: "thirty 30",
+    image: "",
   },
-
   {
+    id: "23",
     front: "czterdzieści 40",
     back: "forty 40",
+    image: "",
   },
-
   {
+    id: "24",
     front: "pięćdziesiąt 50",
     back: "fifty 50",
+    image: "",
   },
-
   {
+    id: "25",
     front: "pięćdziesiąt pięć 55",
     back: "fifty-five 55",
+    image: "",
   },
-
   {
+    id: "26",
     front: "sześćdziesiąt 60",
     back: "sixty 60",
+    image: "",
   },
-
   {
+    id: "27",
     front: "siedemdziesiąt 70",
     back: "seventy 70",
+    image: "",
   },
-
   {
+    id: "28",
     front: "osiemdziesiąt 80",
     back: "eighty 80",
+    image: "",
   },
-
   {
+    id: "29",
     front: "dziewięćdziesiąt 90",
     back: "ninety 90",
+    image: "",
   },
-
   {
+    id: "30",
     front: "sto 100",
     back: "a hundred 100",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_10 = [
+  {
+    id: "1.10",
+    topLevel: "1",
+    title: "Cardinal Numbers",
+    audio: "/audio/1_10_audio_loopcourse.mp3",
+    cards: cards1_10,
+  },
+];

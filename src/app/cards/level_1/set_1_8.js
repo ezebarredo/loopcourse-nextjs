@@ -1,162 +1,194 @@
-const myCardsTitle = [
+export const cards1_8 = [
   {
-    levelNumber: "1.8",
-    title: "Object Pronouns",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "Znasz mnie.",
     back: "You know me.",
+    image: "",
   },
-
   {
+    id: "2",
     front: "Znam cię.",
     back: "I know you.",
+    image: "",
   },
-
   {
+    id: "3",
     front: "Znam go.",
     back: "I know him.",
+    image: "",
   },
-
   {
+    id: "4",
     front: "Znam ją.",
     back: "I know her.",
+    image: "",
   },
-
   {
+    id: "5",
     front: "Znam to.",
     back: "I know it.",
+    image: "",
   },
-
   {
+    id: "6",
     front: "Znasz nas.",
     back: "You know us.",
+    image: "",
   },
-
   {
+    id: "7",
     front: "Znam cię.",
     back: "I know you.",
+    image: "",
   },
-
   {
+    id: "8",
     front: "Znam ich.",
     back: "I know them.",
+    image: "",
   },
-
   {
+    id: "9",
     front: "Oni mnie lubią.",
     back: "They like me.",
+    image: "",
   },
-
   {
+    id: "10",
     front: "Lubię cię.",
     back: "I like you.",
+    image: "",
   },
-
   {
+    id: "11",
     front: "Lubię go.",
     back: "I like him.",
+    image: "",
   },
-
   {
+    id: "12",
     front: "Lubię ją.",
     back: "I like her.",
+    image: "",
   },
-
   {
+    id: "13",
     front: "Lubię to.",
     back: "I like it.",
+    image: "",
   },
-
   {
+    id: "14",
     front: "Oni nas lubią.",
     back: "They like us.",
+    image: "",
   },
-
   {
+    id: "15",
     front: "My was lubimy.",
     back: "We like you.",
+    image: "",
   },
-
   {
+    id: "16",
     front: "My ich lubimy.",
     back: "We like them.",
+    image: "",
   },
-
   {
+    id: "17",
     front: "Pomóż mi.",
     back: "Help me.",
     flashImage: "img/levels/level_1/set_1_8/help_me.jpg",
+    image: "",
   },
-
   {
+    id: "18",
     front: "Pomóż jej.",
     back: "Help her.",
+    image: "",
   },
-
   {
+    id: "19",
     front: "Pomóż mu.",
     back: "Help him.",
+    image: "",
   },
-
   {
+    id: "20",
     front: "Pomóż nam.",
     back: "Help us.",
+    image: "",
   },
-
   {
+    id: "21",
     front: "Pomóż im.",
     back: "Help them.",
+    image: "",
   },
-
   {
+    id: "22",
     front: "Zadzwoń do mnie.",
     back: "Call me.",
     flashImage: "img/levels/level_1/set_1_8/call_me.jpg",
+    image: "",
   },
-
   {
+    id: "23",
     front: "Dzwonię do ciebie codziennie.",
     back: "I call you every day.",
+    image: "",
   },
-
   {
+    id: "24",
     front: "On dzwoni do niej codziennie.",
     back: "He calls her every day.",
+    image: "",
   },
-
   {
+    id: "25",
     front: "Ona dzwoni do niego codziennie.",
     back: "She calls him every day.",
+    image: "",
   },
-
   {
+    id: "26",
     front: "Oni dzwonią do nas codziennie.",
     back: "They call us every day.",
+    image: "",
   },
-
   {
+    id: "27",
     front: "My dzwonimy do nich codziennie.",
     back: "We call them every day.",
+    image: "",
   },
-
   {
+    id: "28",
     front: "Oni dają mu pieniądze.",
     back: "They give him money.",
+    image: "",
   },
-
   {
+    id: "29",
     front: "On daje im pieniądze.",
     back: "He gives them money.",
+    image: "",
   },
-
   {
+    id: "30",
     front: "To daje im pieniądze.",
     back: "It gives them money.",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_8 = [
+  {
+    id: "1.8",
+    topLevel: "1",
+    title: "Object Pronouns",
+    audio: "/audio/1_8_audio_loopcourse.mp3",
+    cards: cards1_8,
+  },
+];

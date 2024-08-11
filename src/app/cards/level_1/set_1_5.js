@@ -1,167 +1,199 @@
-const myCardsTitle = [
+const cards1_5 = [
   {
-    levelNumber: "1.5",
-    title: "This, that, these, those",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "to auto",
     back: "this car",
+    image: "",
   },
-
   {
+    id: "2",
     front: "ten dom",
     back: "this house",
+    image: "",
   },
-
   {
+    id: "3",
     front: "ten sklep",
     back: "this shop",
+    image: "",
   },
-
   {
+    id: "4",
     front: "tamto auto",
     back: "that car",
+    image: "",
   },
-
   {
+    id: "5",
     front: "tamten dom",
     back: "that house",
+    image: "",
   },
-
   {
+    id: "6",
     front: "tamten sklep",
     back: "that shop",
+    image: "",
   },
-
   {
+    id: "7",
     front: "te auta",
     back: "these cars",
     flashImage: "img/levels/level_1/set_1_5/cars.jpg",
+    image: "",
   },
-
   {
+    id: "8",
     front: "te domy",
     back: "these houses",
     flashImage: "img/levels/level_1/set_1_5/houses.jpg",
+    image: "",
   },
-
   {
+    id: "9",
     front: "te sklepy",
     back: "these shops",
     flashImage: "img/levels/level_1/set_1_5/these_shops.jpg",
+    image: "",
   },
-
   {
+    id: "10",
     front: "tamte auta",
     back: "those cars",
+    image: "",
   },
-
   {
+    id: "11",
     front: "tamte domy",
     back: "those houses",
+    image: "",
   },
-
   {
+    id: "12",
     front: "tamte sklepy",
     back: "those shops",
+    image: "",
   },
-
   {
+    id: "13",
     front: "To auto jest stare.",
     back: "This car is old.",
+    image: "",
   },
-
   {
+    id: "14",
     front: "Tamto auto jest nowe.",
     back: "That car is new.",
+    image: "",
   },
-
   {
+    id: "15",
     front: "Ten dom jest duży.",
     back: "This house is big.",
+    image: "",
   },
-
   {
+    id: "16",
     front: "Tamten dom jest mały.",
     back: "That house is small.",
+    image: "",
   },
-
   {
+    id: "17",
     front: "Ten sklep jest tani.",
     back: "This shop is cheap.",
+    image: "",
   },
-
   {
+    id: "18",
     front: "Tamten sklep jest drogi.",
     back: "That shop is expensive.",
+    image: "",
   },
-
   {
+    id: "19",
     front: "Te auta są niebieskie.",
     back: "These cars are blue.",
+    image: "",
   },
-
   {
+    id: "20",
     front: "Tamte auta są zielone.",
     back: "Those cars are green.",
+    image: "",
   },
-
   {
+    id: "21",
     front: "Te sklepy są otwarte.",
     back: "These shops are open.",
     flashImage: "img/levels/level_1/set_1_5/open.jpg",
+    image: "",
   },
-
   {
+    id: "22",
     front: "Tamte sklepy są zamknięte.",
     back: "Those shops are closed.",
     flashImage: "img/levels/level_1/set_1_5/closed.jpg",
+    image: "",
   },
-
   {
+    id: "23",
     front: "Te domy są nowe.",
     back: "These houses are new.",
+    image: "",
   },
-
   {
+    id: "24",
     front: "Tamte domy są stare.",
     back: "Those houses are old.",
+    image: "",
   },
-
   {
+    id: "25",
     front: "To jest moje mieszkanie.",
     back: "This is my flat.",
     flashImage: "img/levels/level_1/set_1_5/flat.jpg",
+    image: "",
   },
-
   {
+    id: "26",
     front: "Tamto mieszkanie jest jej.",
     back: "That is her flat.",
+    image: "",
   },
-
   {
+    id: "27",
     front: "To są nasze książki.",
     back: "These are our books.",
+    image: "",
   },
-
   {
+    id: "28",
     front: "Tamte książki są wasze.",
     back: "Those are your books.",
+    image: "",
   },
-
   {
+    id: "29",
     front: "To jest jego żona.",
     back: "This is his wife.",
     flashImage: "img/levels/level_1/set_1_5/wife.jpg",
+    image: "",
   },
-
   {
+    id: "30",
     front: "Tamto biuro jest jej.",
     back: "That is her office.",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_5 = [
+  {
+    id: "1.5",
+    topLevel: "1",
+    title: "This, that, these, those",
+    audio: "",
+    cards: cards1_5,
+  },
+];

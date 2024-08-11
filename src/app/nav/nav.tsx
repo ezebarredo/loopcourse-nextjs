@@ -21,7 +21,7 @@ export default function Navigation() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
-              <Button variant="primary">Twoje Konto</Button>
+              {/* <Button variant="primary">Twoje Konto</Button> */}
               <NavDropdownMenu title="Otworz kurs" id="basic-nav-dropdown">
                 {/* Top level + sublevels  */}
                 {topLevels.map((topLevel) => {

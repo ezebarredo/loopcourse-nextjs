@@ -1,164 +1,196 @@
-const myCardsTitle = [
+export const cards1_9 = [
   {
-    levelNumber: "1.9",
-    title: "a, an, the, some",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "auto",
     back: "a car",
+    image: "",
   },
-
   {
+    id: "2",
     front: "To jest auto.",
     back: "This is a car.",
+    image: "",
   },
-
   {
+    id: "3",
     front: "To jest nowe auto.",
     back: "This is a new car.",
+    image: "",
   },
-
   {
+    id: "4",
     front: "To jest to auto, które mi się podoba.",
     back: "This is the car that I like.",
     flashImage: "img/levels/level_1/set_1_9/car_like.jpg",
+    image: "",
   },
-
   {
+    id: "5",
     front: "pomysł",
     back: "an idea",
+    image: "",
   },
-
   {
+    id: "6",
     front: "Mam pomysł.",
     back: "I have an idea.",
     flashImage: "img/levels/level_1/set_1_9/idea.jpg",
+    image: "",
   },
-
   {
+    id: "7",
     front: "To jest dobry pomysł.",
     back: "This is a good idea.",
+    image: "",
   },
-
   {
+    id: "8",
     front: "To jest ten pomysł, który mi się podoba.",
     back: "This is the idea that I like.",
+    image: "",
   },
-
   {
+    id: "9",
     front: "dom",
     back: "a house",
+    image: "",
   },
-
   {
+    id: "10",
     front: "To jest dom.",
     back: "This is a house.",
     flashImage: "img/levels/level_1/set_1_9/this_house.jpg",
+    image: "",
   },
-
   {
+    id: "11",
     front: "To jest mały dom.",
     back: "This is a small house.",
+    image: "",
   },
-
   {
+    id: "12",
     front: "To jest dom, w którym mieszkam.",
     back: "This is the house where I live.",
+    image: "",
   },
-
   {
+    id: "13",
     front: "parasol",
     back: "an umbrella",
     flashImage: "img/levels/level_1/set_1_9/umbrella.jpg",
+    image: "",
   },
-
   {
+    id: "14",
     front: "To jest parasol.",
     back: "This is an umbrella.",
+    image: "",
   },
-
   {
+    id: "15",
     front: "To jest duży parasol.",
     back: "This is a big umbrella.",
+    image: "",
   },
-
   {
+    id: "16",
     front: "To jest parasol, który zgubiłem.",
     back: "This is the umbrella that I lost.",
+    image: "",
   },
-
   {
+    id: "17",
     front: "jakieś auto",
     back: "a car",
+    image: "",
   },
-
   {
+    id: "18",
     front: "to auto",
     back: "the car",
+    image: "",
   },
-
   {
+    id: "19",
     front: "jakieś auta",
     back: "some cars",
+    image: "",
   },
-
   {
+    id: "20",
     front: "te auta",
     back: "the cars",
+    image: "",
   },
-
   {
+    id: "21",
     front: "jakiś pomysł",
     back: "an idea",
+    image: "",
   },
-
   {
+    id: "22",
     front: "ten pomysł",
     back: "the idea",
+    image: "",
   },
-
   {
+    id: "23",
     front: "jakieś pomysły",
     back: "some ideas",
+    image: "",
   },
-
   {
+    id: "24",
     front: "te pomysły",
     back: "the ideas",
+    image: "",
   },
-
   {
+    id: "25",
     front: "jakiś dom",
     back: "a house",
+    image: "",
   },
-
   {
+    id: "26",
     front: "ten dom",
     back: "the house",
+    image: "",
   },
-
   {
+    id: "27",
     front: "jakieś domy",
     back: "some houses",
+    image: "",
   },
-
   {
+    id: "28",
     front: "te domy",
     back: "the houses",
+    image: "",
   },
-
   {
+    id: "29",
     front: "Mają jakiś dom.",
     back: "They have a house.",
+    image: "",
   },
-
   {
+    id: "30",
     front: "Ten dom jest piękny.",
     back: "The house is beautiful.",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_9 = [
+  {
+    id: "1.9",
+    topLevel: "1",
+    title: "a, an, the, some",
+    audio: "/audio/1_1_audio_loopcourse.mp3",
+    cards: cards1_9,
+  },
+];

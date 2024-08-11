@@ -1,162 +1,194 @@
-const myCardsTitle = [
+export const cards1_4 = [
   {
-    levelNumber: "1.4",
-    title: "have",
-  },
-];
-
-const myCards = [
-  {
+    id: "1",
     front: "Ja mam książkę.",
     back: "I have a book.",
+    image: "",
   },
-
   {
+    id: "2",
     front: "Ty masz książkę.",
     back: "You have a book.",
+    image: "",
   },
-
   {
+    id: "3",
     front: "Ona ma książkę.",
     back: "She has a book.",
+    image: "",
   },
-
   {
+    id: "4",
     front: "On ma książkę.",
     back: "He has a book.",
+    image: "",
   },
-
   {
+    id: "5",
     front: "Ono ma książkę.",
     back: "It has a book.",
+    image: "",
   },
-
   {
+    id: "6",
     front: "My mamy czas.",
     back: "We have time.",
     flashImage: "img/levels/level_1/set_1_4/we_have_time.jpg",
+    image: "",
   },
-
   {
+    id: "7",
     front: "Wy macie czas.",
     back: "You have time.",
+    image: "",
   },
-
   {
+    id: "8",
     front: "Oni mają czas.",
     back: "They have time.",
+    image: "",
   },
-
   {
+    id: "9",
     front: "Ja nie mam czasu.",
     back: "I don't have time.",
+    image: "",
   },
-
   {
+    id: "10",
     front: "Ty nie masz czasu.",
     back: "You don't have time.",
+    image: "",
   },
-
   {
+    id: "11",
     front: "Ona nie ma czasu.",
     back: "She doesn't have time.",
+    image: "",
   },
-
   {
+    id: "12",
     front: "On nie ma czasu.",
     back: "He doesn't have time.",
+    image: "",
   },
-
   {
+    id: "13",
     front: "Ono nie ma czasu.",
     back: "It doesn't have time.",
+    image: "",
   },
-
   {
+    id: "14",
     front: "My nie mamy problemów.",
     back: "We don't have problems.",
+    image: "",
   },
-
   {
+    id: "15",
     front: "Wy nie macie problemów.",
     back: "You don't have problems.",
+    image: "",
   },
-
   {
+    id: "16",
     front: "Oni nie maja problemów.",
     back: "They don't have problems.",
+    image: "",
   },
-
   {
+    id: "17",
     front: "Czy ja mam plan?",
     back: "Do I have a plan?",
     flashImage: "img/levels/level_1/set_1_4/have_plan.jpg",
+    image: "",
   },
-
   {
+    id: "18",
     front: "Czy ty masz plan?",
     back: "Do you have a plan?",
+    image: "",
   },
-
   {
+    id: "19",
     front: "Czy ona ma plan?",
     back: "Does she have a plan?",
+    image: "",
   },
-
   {
+    id: "20",
     front: "Czy on ma plan?",
     back: "Does he have a plan?",
+    image: "",
   },
-
   {
+    id: "21",
     front: "Czy ono ma plan?",
     back: "Does it have a plan?",
+    image: "",
   },
-
   {
+    id: "22",
     front: "Czy my mamy auto?",
     back: "Do we have a car?",
+    image: "",
   },
-
   {
+    id: "23",
     front: "Czy wy macie auto?",
     back: "Do you have a car?",
+    image: "",
   },
-
   {
+    id: "24",
     front: "Czy oni mają auto?",
     back: "Do they have a car?",
+    image: "",
   },
-
   {
+    id: "25",
     front: "Ja mam dobrą pracę.",
     back: "I have a good job.",
+    image: "",
   },
-
   {
+    id: "26",
     front: "Czy ty masz czas?",
     back: "Do you have time?",
+    image: "",
   },
-
   {
+    id: "27",
     front: "On nie ma laptopa.",
     back: "He doesn't have a laptop.",
+    image: "",
   },
-
   {
+    id: "28",
     front: "Czy ona ma twój numer telefonu?",
     back: "Does she have your phone number?",
+    image: "",
   },
-
   {
+    id: "29",
     front: "My nie mamy czasu.",
     back: "We don't have time.",
+    image: "",
   },
-
   {
+    id: "30",
     front: "Ja mam wszystko.",
     back: "I have everything.",
+    image: "",
   },
 ];
 
-export { myCardsTitle, myCards };
+export const level1_4 = [
+  {
+    id: "1.4",
+    topLevel: "1",
+    title: "To have",
+    audio: "/audio/1_4_audio_loopcourse.mp3",
+    cards: cards1_4,
+  },
+];
